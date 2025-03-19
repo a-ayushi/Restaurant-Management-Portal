@@ -50,13 +50,20 @@ public List<Restaurant> getRestaurantsByOwner(Long ownerId) {
 public Restaurant updateRestaurant(Long restaurantId, Restaurant updatedRestaurant, Long ownerId) {
     Optional<Restaurant> existingRestaurant = restaurantRepository.findById(restaurantId);
 
-    if (existingRestaurant.isPresent() && existingRestaurant.get().getOwner().getId().equals(ownerId)) {
+    if (existingRestaurant.isPresent()){  // not checking the condition here , so that a exception can be thrown
         Restaurant restaurant = existingRestaurant.get();
+
+        // Check if the logged-in user is the owner of the restaurant
+        if (!restaurant.getOwner().getId().equals(ownerId)) {
+//            Throws an error if an unauthorized owner tries to update a restaurant.
+            throw new RuntimeException("You are not allowed to update this restaurant.");
+        }
+
         restaurant.setName(updatedRestaurant.getName());
         restaurant.setAddress(updatedRestaurant.getAddress());
         return restaurantRepository.save(restaurant);
     } else {
-        throw new RuntimeException("Only the restaurant owner can update this restaurant.");
+        throw new RuntimeException("Restaurant NOT found!");
     }
 }
 
@@ -64,10 +71,16 @@ public Restaurant updateRestaurant(Long restaurantId, Restaurant updatedRestaura
     public void deleteRestaurant(Long restaurantId, Long ownerId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 
-        if (restaurant.isPresent() && restaurant.get().getOwner().getId().equals(ownerId)) {
+        if (restaurant.isPresent()){
+            // Check if the logged-in user is the owner of the restaurant
+            if (!restaurant.get().getOwner().getId().equals(ownerId)) {
+
+         // Throws an error if an unauthorized owner tries to delete a restaurant.
+                throw new RuntimeException("You are not allowed to delete this restaurant.");
+            }
             restaurantRepository.deleteById(restaurantId);
         } else {
-            throw new RuntimeException("Only the restaurant owner can delete this restaurant.");
+            throw new RuntimeException("Restaurant NOT found!");
         }
     }
 }
