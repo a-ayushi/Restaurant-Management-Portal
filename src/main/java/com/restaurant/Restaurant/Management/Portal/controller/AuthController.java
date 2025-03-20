@@ -35,14 +35,12 @@ public class AuthController {
         if (existingUser.isPresent() &&
                 passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
 
-            session.setAttribute("user", existingUser.get()); // Store user in session
+            session.setAttribute("userId", existingUser.get().getId()); // Store user in session
             return "Login successful!";
         } else {
             return "Invalid credentials";
         }
     }
-
-
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Destroy session

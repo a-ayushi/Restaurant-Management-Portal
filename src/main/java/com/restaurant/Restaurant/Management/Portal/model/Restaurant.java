@@ -3,7 +3,7 @@ package com.restaurant.Restaurant.Management.Portal.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="restuarants")
+@Table(name="restaurants")
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
