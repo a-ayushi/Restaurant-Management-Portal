@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -25,16 +26,20 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // Allow register & login
                         .requestMatchers("/restaurants/**").hasAuthority("OWNER") // Owners only can manage restaurants
-                        .requestMatchers("/orders/**").hasAuthority("CUSTOMER") // Customers only
+                        .requestMatchers("/menu/**").hasAuthority("OWNER") // Only owners can manage menu
                         .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults()) // Enable session-based authentication
+                .sessionManagement(session -> session
+                        .sessionFixation().migrateSession()
+                )
+                               .formLogin(withDefaults()) // Enable session-based authentication
                 // .logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login"));
                 .logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessHandler((request,response,authentication)->{
                     response.setContentType("application/json");
                     response.getWriter().write("{\"message\": \"Logout successful!\"}");
 
                 }));
+
 
         return http.build();
     }
