@@ -17,6 +17,7 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
+
     // Total 5 APIs used for RestaurantController
 
     //1. POST /restaurants-> Only logged-in owners can create a restaurant.
@@ -26,6 +27,7 @@ public class RestaurantController {
         if (ownerId == null) {
             throw new RuntimeException("User not logged in.");
         }
+
         return restaurantService.createRestaurant(restaurant, ownerId);
     }
 
