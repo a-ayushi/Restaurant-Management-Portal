@@ -38,6 +38,7 @@ public class RestaurantController {
         return restaurantService.getAllRestaurants();
     }
 
+
     //3. GET /restaurant/{id}-> Fetch a specific restaurant by ID.
     @GetMapping("/{id}")
     public Optional<Restaurant> getRestaurantById(@PathVariable Long id) {
