@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Homepage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <a href="#" class="logo">FoodieHub</a>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Menu</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="cart.html">cart</a></li>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search...">
+        <button type="submit">🔍</button>
+    </div>
+
+    <div class="auth-buttons">
+        <button onclick="showLogin()" id="login-btn">Login</button>
+        <button onclick="showRegister()" id="register-btn">Register</button>
+    </div>
+</nav>
+
+
+<section id="restaurant-list">
+    <!-- Restaurants will be loaded here -->
+</section>
+
+
+<!-- Login Form -->
+<div id="login-container" class="form-container">
+    <h2>Login</h2>
+    <form id="login-form">
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<!-- Register Form -->
+<div id="register-container" class="form-container" style="display: none;">
+    <h2>Register</h2>
+    <form id="register-form">
+        <input type="email" id="register-email" placeholder="Email" required>
+        <input type="password" id="register-password" placeholder="Password" required>
+        <select id="register-role" required>
+            <option value="">Select Role</option>
+            <option value="CUSTOMER">Customer</option>
+            <option value="OWNER">Restaurant Owner</option>
+        </select>
+        <button type="submit">Register</button>
+    </form>
+</div>
+<script src="register.js"></script>
+<script src="loginOrRegister.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
