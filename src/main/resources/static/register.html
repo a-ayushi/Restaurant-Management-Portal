@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="form-container">
+<!--navbar-->
+
+<nav class="navbar">
+    <a href="#" class="logo">FoodieHub</a>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Register Form -->
+<div id="register-container" class="form-container">
     <h2>Register</h2>
     <form id="register-form">
         <input type="email" id="register-email" placeholder="Email" required>
@@ -19,10 +30,10 @@
             <option value="OWNER">Restaurant Owner</option>
         </select>
         <button type="submit">Register</button>
-        <p>Already have an account? <a href="login.html">Login</a></p>
     </form>
 </div>
 
 <script src="script.js"></script>
+<script src="register.js"></script>
 </body>
 </html>

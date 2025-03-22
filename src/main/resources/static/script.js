@@ -55,70 +55,9 @@ function redirectToRegister() {
 //}
 //
 /////////////////////////////////////
-////// /////Show Login Form, Hide Register Form
-////function showLogin() {
-////    document.getElementById("login-container").style.display = "block";
-////    document.getElementById("register-container").style.display = "none";
-////}
-////
-////// Show Register Form, Hide Login Form
-////function showRegister() {
-////    document.getElementById("login-container").style.display = "none";
-////    document.getElementById("register-container").style.display = "block";
-////}
-////
-////// Handle Login Submission
-////document.getElementById("login-form").addEventListener("submit", function (event) {
-////    event.preventDefault();
-////    let email = document.getElementById("login-email").value;
-////    let password = document.getElementById("login-password").value;
-////
-////
-//////After login the restaurant owner will be redirected to dashboard page
-////fetch("http://localhost:8080/restaurants", {
-////        method: "POST",
-////        headers: { "Content-Type": "application/json" },
-////        body: JSON.stringify({ email, password })
-////    })
-////    .then(response => response.json())
-////    .then(data => {
-////        if (data.role === "OWNER") {
-////            window.location.href = "dashboard.html"; // Redirect to the dashboard
-////        } else {
-////
-////            window.location.href = "index.html"; // Redirect customers to the homepage
-////        }
-////    })
-////    .catch(error => console.error("Login failed:", error));
-////});
-////
-////// Handle Registration Submission
-////document.getElementById("register-form").addEventListener("submit", function (event) {
-////    event.preventDefault();
-////    let email = document.getElementById("register-email").value;
-////    let password = document.getElementById("register-password").value;
-////    let role = document.getElementById("register-role").value;
-////
-////// if user do not select it then give an alert
-////    if (role === "") {
-////        alert("Please select a role!");
-////        return;
-////    }
-////
-////    fetch("http://localhost:8080/auth/login", {
-////            method: "POST",
-////            headers: { "Content-Type": "application/json" },
-////            body: JSON.stringify({ email, password, role })
-////        })
-////        .then(response => response.json())
-////        .then(data => {
-////            alert("Registration successful! Redirecting to login...");
-////           showLogin();
-//////            window.location.href = "login.html"; // Redirect to Login Page
-////        })
-////        .catch(error => console.error("Registration failed:", error));
-////});
-//
+
+
+
 ////// ////////restaurant dashboard things
 //// Show Add/Edit Restaurant Form
 //function showAddForm() {

@@ -197,10 +197,6 @@
 }
 
 /* ---- Form Styles ---- */
-
-.form-container {
-    display: none;  /* Hide forms initially */
-}
 .form-container {
     width: 300px;
     padding: 20px;
