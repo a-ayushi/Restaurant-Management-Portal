@@ -31,16 +31,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user, HttpSession session) {
-        Optional<User> existingUser = userService.findByEmail(user.getEmail());
-
-        if (existingUser.isPresent() &&
-                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
-
-            session.setAttribute("userId", existingUser.get().getId()); // Store user in session
-            return "Login successful!";
-        } else {
-            return "Invalid credentials";
-        }
+//        Optional<User> existingUser = userService.findByEmail(user.getEmail());
+//
+//        if (existingUser.isPresent() &&
+//                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
+//
+//            session.setAttribute("userId", existingUser.get().getId()); // Store user in session
+//            return "Login successful!";
+//        } else {
+//            return "Invalid credentials";
+//        }
+        session.setAttribute("userId", user);
+        return "Logged in successfully!";
     }
     @PostMapping("/logout")
     public String logout(HttpSession session) {

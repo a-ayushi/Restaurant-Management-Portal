@@ -12,11 +12,14 @@ public class Restaurant {
     @Column(nullable=false)
     private String name;
 
+//    @Column(nullable = false)
+//    private Long ownerId;
+
     @Column(nullable = false)
     private String address;
 
     @ManyToOne // Each restaurant has one owner
-    @JoinColumn(name="owner_id", nullable = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;//the restaurant owner
 
     //Default constructor
@@ -46,6 +49,14 @@ public class Restaurant {
     public void setName(String name) {
         this.name = name;
     }
+
+//    public Long getOwnerId() {
+//        return ownerId;
+//    }
+//
+//    public void setOwnerId(Long ownerId) {
+//        this.ownerId = ownerId;
+//    }
 
     public String getAddress(){
         return address;

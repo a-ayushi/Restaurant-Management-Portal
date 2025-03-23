@@ -18,17 +18,27 @@ document.addEventListener("DOMContentLoaded", function () {
         const name = document.getElementById("restaurant-name").value;
         const address = document.getElementById("restaurant-address").value;
 
+        // Get user ID from localStorage
+
+  const ownerId = localStorage.getItem("userId");
+        if (!ownerId) {
+            alert("User not logged in. Please log in first.");
+            return;
+        }
+
         // Send data to API
         //this API will create a new restaurants
         fetch("http://localhost:8080/restaurants", {
             method: "POST",
+//             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, address })
+            body: JSON.stringify({ name, address,ownerId })
         })
         .then(response => response.json())
         .then(data => {
+//        console.log("response:",data);
             if (data.success) {
                 alert("Restaurant added successfully!");
                 restaurantFormContainer.style.display = "none"; // Hide form

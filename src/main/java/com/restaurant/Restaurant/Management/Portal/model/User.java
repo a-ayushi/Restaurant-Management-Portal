@@ -36,6 +36,7 @@ public User(String email, String password, Role role) {
     public void setId(Long id){
         this.id=id;
     }
+
     public String getEmail(){
         return email;
     }

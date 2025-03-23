@@ -28,7 +28,6 @@ public class RestaurantController {
         if (ownerId == null) {
             throw new RuntimeException("User not logged in.");
         }
-
         return restaurantService.createRestaurant(restaurant, ownerId);
     }
 

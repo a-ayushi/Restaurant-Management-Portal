@@ -32,6 +32,11 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable()) // Disable login form
                 .httpBasic(basic -> basic.disable()); // Disable basic authentication
 
+        http.sessionManagement(session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // Ensure session is created
+        );
+
+
         return http.build();
     }
 

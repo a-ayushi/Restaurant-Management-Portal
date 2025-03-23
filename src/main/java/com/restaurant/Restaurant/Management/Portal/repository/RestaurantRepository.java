@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant,Long>{ // enable basic CRUD operaions
-  List<Restaurant> findByOwnerId(Long OwnerId); // fetch the restaurant by a specific owner
+  List<Restaurant> findByOwner(User owner); // fetch the restaurant by a specific owner
 }

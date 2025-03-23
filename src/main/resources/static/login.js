@@ -39,6 +39,14 @@ fetch("http://localhost:8080/auth/login", {
                 if (type === "json") {
                     if (status === 200) {
                         alert("Login Successfully");
+
+                // Store userId in localStorage
+                if (data.userId) {
+                    localStorage.setItem("userId", data.userId);
+                    console.log("User ID saved:", data.userId);
+                } else {
+                    console.warn("User ID not found in response");
+                }
                         window.location.href = "dashboard.html";
                     } else {
                         alert("Login failed: " + (data.error || "Unknown error"));
@@ -46,6 +54,14 @@ fetch("http://localhost:8080/auth/login", {
                 } else { // Handling text response
                     if (data.includes("successful")) {
                         alert("Login Successful!");
+
+                // Store userId in localStorage
+                if (data.userId) {
+                    localStorage.setItem("userId", data.userId);
+                    console.log("User ID saved:", data.userId);
+                } else {
+                    console.warn("User ID not found in response");
+                }
                         window.location.href = "dashboard.html";
                     } else {
                         alert("Login failed: " + data);
