@@ -15,38 +15,52 @@ function showRegister() {
 // Handle Registration Submission
 document.getElementById("register-form").addEventListener("submit", function (event) {
     event.preventDefault();
-    let email = document.getElementById("register-email").value;
-    let password = document.getElementById("register-password").value;
-    let role = document.getElementById("register-role").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+    const role = document.getElementById("register-role").value;
 
-// if user do not select it then give an alert
-    if (role === "") {
+    if (!role) {
         alert("Please select a role!");
         return;
     }
-console.log("Registering:", { email, password, role });
+
+//    console.log("Registering:", { email, password, role });
 
     fetch("http://localhost:8080/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, role })
-        })
-
-        .then(response => {
-            console.log("Full Response:", response);
-            return response.json();
-        })
-       .then(data => {
-           console.log("Response Data:", data);
-           if (data.message === "User registered successfully!") {
-               alert("Registration Successful! Redirecting to login...");
-               window.location.href = "login.html";
-           } else {
-               alert("Registration failed: " + (data.error || "Unknown error"));
-           }
-       })
-       .catch(error => {
-           console.error("Fetch Error:", error);
-           alert("Registration failed due to a network error.");
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role })
+    })
+    .then(response => {
+        // Optionally check the Content-Type header to decide how to parse
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            return response.json().then(data => ({ type: "json", data, status: response.status }));
+        } else {
+            return response.text().then(text => ({ type: "text", data: text, status: response.status }));
+        }
+    })
+    .then(({ type, data, status }) => {
+//        console.log("Response Data:", data);
+        console.log("Response Status:", status);
+        if (type === "json") {
+            if (status === 200) {
+                alert("Registration Successful! Redirecting to login...");
+                window.location.href = "login.html";
+            } else {
+                alert("Registration failed: " + (data.error || "Unknown error"));
+            }
+        } else { // Handling text response
+            if (data.includes("successful")) {
+                alert("Registration Successful! Redirecting to login...");
+                window.location.href = "login.html";
+            } else {
+                alert("Registration failed: " + data);
+            }
+        }
+    })
+    .catch(error => {
+        console.error("Fetch Error:", error);
+        alert("Registration failed due to a network error.");
 });
 });

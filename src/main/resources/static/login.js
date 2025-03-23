@@ -13,6 +13,7 @@ function showLogin() {
 
 document.getElementById("login-form").addEventListener("submit", function (event) {
     event.preventDefault();
+
     let email = document.getElementById("login-email").value;
     let password = document.getElementById("login-password").value;
 
@@ -23,14 +24,37 @@ fetch("http://localhost:8080/auth/login", {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.role === "OWNER") {
-            window.location.href = "dashboard.html"; // Redirect to the dashboard
-        } else {
+     .then(response => {
+            // Optionally check the Content-Type header to decide how to parse
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return response.json().then(data => ({ type: "json", data, status: response.status }));
+            } else {
+                return response.text().then(text => ({ type: "text", data: text, status: response.status }));
+            }
+        })
+         .then(({ type, data, status }) => {
+//                console.log("Response Data:", data);
+                console.log("Response Status:", status);
+                if (type === "json") {
+                    if (status === 200) {
+                        alert("Login Successfully");
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("Login failed: " + (data.error || "Unknown error"));
+                    }
+                } else { // Handling text response
+                    if (data.includes("successful")) {
+                        alert("Login Successful!");
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("Login failed: " + data);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                alert("Login failed due to a network error.");
+        });
 
-            window.location.href = "index.html"; // Redirect customers to the homepage
-        }
-    })
-    .catch(error => console.error("Login failed:", error));
 });

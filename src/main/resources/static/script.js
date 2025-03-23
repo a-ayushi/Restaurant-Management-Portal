@@ -7,49 +7,7 @@ function redirectToRegister() {
 }
 
 
-//
-//
-//document.addEventListener("DOMContentLoaded", function () {
-//    fetchRestaurants();
-//});
-//
-//function fetchRestaurants() {
-//    fetch("http://localhost:8080/restaurants")
-//       .then(response => response.json())
-//              .then(data => {
-//                  if (document.getElementById("restaurant-list")) {
-//                      displayRestaurants(data);
-//                  }
-//              })
-//        .catch(error => {
-//            console.error("Error fetching restaurants:", error);
-//            document.getElementById("restaurant-list").innerHTML =
-//                "<p style='color: red;'>Failed to load restaurants. Try again later.</p>";
-//        });
-//}
-//
-//function displayRestaurants(restaurants) {
-//    let restaurantContainer = document.getElementById("restaurant-list");
-//    restaurantContainer.innerHTML = ""; // Clear previous data
-//
-//    if (restaurants.length === 0) {
-//        restaurantContainer.innerHTML = "<p>No restaurants available.</p>";
-//        return;
-//    }
-//
-//    restaurants.forEach(restaurant => {
-//        let restaurantCard = document.createElement("div");
-//        restaurantCard.classList.add("restaurant-card");
-//
-//        restaurantCard.innerHTML = `
-//                       <h3>${restaurant.name}</h3><p>${restaurant.address}</p>`;
-//            <button onclick="viewMenu(${restaurant.id})">View Menu</button>
-//        ;
-//
-//        restaurantContainer.appendChild(restaurantCard);
-//    });
-//}
-//
+
 //function viewMenu(restaurantId) {
 //    window.location.href = `menu.html?restaurant=${restaurantId}`;
 //}

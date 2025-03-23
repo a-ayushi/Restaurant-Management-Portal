@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/auth")
-
+@CrossOrigin(origins = "http://localhost:63342")
 public class AuthController {
     @Autowired // provides the instance of userService without manually creating it using new
     private UserService userService;

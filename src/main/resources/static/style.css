@@ -150,20 +150,37 @@
 
 
 /*home page fetching restaurants*/
+#featured-restaurants {
+    text-align: center;
+    margin-top: 30px;
+}
+
 #restaurant-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-top: 20px;
+}
+
+#restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+     margin-top: 20px;
+        padding: 0;
 }
 
 .restaurant-card {
-    width: 300px;
-    padding: 15px;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+     width: 300px;
+       background: white;
+       padding: 15px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+       border-radius: 8px;
+       text-align: center;
+       transition: transform 0.3s ease-in-out;
+       border-left: 5px solid #ff6b6b;
 }
 
 .restaurant-card img {
@@ -173,13 +190,19 @@
     border-radius: 5px;
 }
 
+/* Restaurant Title */
 .restaurant-card h3 {
     margin: 10px 0;
     font-size: 20px;
-}
+        color: #333;
 
+
+}
+/* Restaurant Address */
 .restaurant-card p {
-    color: #555;
+     font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
 }
 
 .restaurant-card button {
@@ -237,6 +260,7 @@
     text-align: center;
 }
 
+/* Buttons */
 button {
     padding: 10px;
     background-color: #ff6b6b;
@@ -245,20 +269,67 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
+    font-size: 16px;
 }
 
 button:hover {
     background-color: #ff4757;
 }
 
+/* Add Restaurant Button */
+#add-restaurant-btn {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Restaurant Form Container (Initially Hidden) */
+#restaurant-form-container {
+    display: none;
+    background: white;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Inputs */
+#restaurant-form input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Submit Button */
+#restaurant-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#restaurant-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Restaurant List */
 #restaurant-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     margin-top: 20px;
+    list-style: none;
+    padding: 0;
 }
 
+/* Restaurant Cards */
 .restaurant-card {
     width: 300px;
     padding: 15px;
@@ -266,14 +337,30 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     text-align: center;
+     transition: transform 0.3s ease-in-out;
+        border-left: 5px solid #ff6b6b;
+}
+.restaurant-card:hover {
+    transform: translateY(-5px);
 }
 
 .restaurant-card h3 {
     margin: 10px 0;
+      font-size: 20px;
+        color: #333;
+}
+
+/* Restaurant Address */
+.restaurant-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
 }
 
 .restaurant-card button {
     background-color: #343a40;
+        padding: 8px 12px;
+        font-size: 14px;
 }
 
 .restaurant-card button:hover {
