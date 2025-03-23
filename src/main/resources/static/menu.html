@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="logo">FoodieHub</a>
+  <ul>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="cart.html">Cart</a></li>
+    <li><a href="#">Logout</a></li>
+  </ul>
+</nav>
+
+<div class="menu-container">
+  <h2>Manage Your Menu</h2>
+  <button onclick="showAddMenuForm()">Add New Item</button>
+
+  <!-- List of Menu Items -->
+  <div id="menu-list"></div>
+
+  <!-- Add/Edit Menu Item Form -->
+  <div id="menu-form" class="form-container" style="display: none;">
+    <h3 id="menu-form-title">Add Menu Item</h3>
+    <input type="text" id="menu-name" placeholder="Item Name" required>
+    <input type="number" id="menu-price" placeholder="Price" required>
+    <button onclick="submitMenuItem()">Save</button>
+    <button onclick="hideMenuForm()">Cancel</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="logo">FoodieHub</a>
+    <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="dashboard-container">
+    <h2>Your Restaurants</h2>
+    <button id="add-restaurant-btn">Add Restaurant</button>
+
+    <!-- Restaurant Form (Initially Hidden) -->
+    <div id="restaurant-form-container" style="display: none;">
+        <h3>Add a New Restaurant</h3>
+        <form id="restaurant-form">
+            <input type="text" id="restaurant-name" placeholder="Restaurant Name" required>
+            <input type="text" id="restaurant-address" placeholder="Restaurant Address" required>
+            <button type="submit">Create</button>
+        </form>
+    </div>
+
+    <!-- Restaurant List -->
+    <div id="restaurant-list"></div>
+</div>
+
+<script src="script.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
