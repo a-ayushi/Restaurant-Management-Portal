@@ -3,9 +3,12 @@ package com.restaurant.Restaurant.Management.Portal.controller;
 import com.restaurant.Restaurant.Management.Portal.model.User;
 import com.restaurant.Restaurant.Management.Portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.HashMap;
+import java.util.Map;
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -30,23 +33,24 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user, HttpSession session) {
-//        Optional<User> existingUser = userService.findByEmail(user.getEmail());
-//
-//        if (existingUser.isPresent() &&
-//                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
-//
-//            session.setAttribute("userId", existingUser.get().getId()); // Store user in session
-//            return "Login successful!";
-//        } else {
-//            return "Invalid credentials";
-//        }
-        session.setAttribute("userId", user);
-        return "Logged in successfully!";
+    public Map<String, Object> login(@RequestBody User user) {
+        Map<String, Object> response = new HashMap<>();
+        Optional<User> existingUser = userService.findByEmail(user.getEmail());
+
+        if (existingUser.isPresent() &&
+                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
+
+            response.put("message", "Login successful!");
+            response.put("userId", existingUser.get().getId());
+            response.put("role", existingUser.get().getRole().toString());
+            return response;
+        } else {
+            response.put("message", "Invalid credentials");
+            return response;
+        }
     }
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate(); // Destroy session
+    public String logout() {
         return "Logout successful!";
     }
 }

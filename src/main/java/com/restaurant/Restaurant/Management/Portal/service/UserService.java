@@ -5,25 +5,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
-
 @Service
 public class UserService {
     @Autowired
-    private UserRepository userRepository;//handles database operations like saving and fetching
+    private UserRepository userRepository;
 
-    // Injects PasswordEncoder, which encrypts passwords before storing them.
-     @Autowired
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-   //Saves a new user with an encrypted password.
     public User registerUser(User user) {
+        // Check if user already exists
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("Error: Email is already in use!");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
         return userRepository.save(user);
     }
 
-  // Checks if a user already exists.
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 }
+

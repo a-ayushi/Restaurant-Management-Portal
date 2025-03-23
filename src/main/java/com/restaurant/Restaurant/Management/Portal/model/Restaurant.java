@@ -1,40 +1,36 @@
 package com.restaurant.Restaurant.Management.Portal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="restaurants")
+@Table(name = "restaurants")
 public class Restaurant {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
     private String name;
-
-//    @Column(nullable = false)
-//    private Long ownerId;
-
-    @Column(nullable = false)
     private String address;
 
-    @ManyToOne // Each restaurant has one owner
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;//the restaurant owner
+    @JsonIgnoreProperties("restaurants") // Prevent infinite recursion in JSON responses
+    private User owner;  // Reference to the owner of this restaurant
 
-    //Default constructor
-    public Restaurant(){}
-
-    //Parameterized Constructor
-    public Restaurant(String name,String address,User owner) {
-        this.name = name;
-        this.address=address;
-        this.owner=owner;
+    // Constructors
+    public Restaurant() {
     }
 
-    //Getters and Setters
+    public Restaurant(String name, String address, User owner) {
+        this.name = name;
+        this.address = address;
+        this.owner = owner;
+    }
 
-    public Long getId(){
+    // Getters and Setters
+    public Long getId() {
         return id;
     }
 
@@ -42,7 +38,7 @@ public class Restaurant {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -50,15 +46,7 @@ public class Restaurant {
         this.name = name;
     }
 
-//    public Long getOwnerId() {
-//        return ownerId;
-//    }
-//
-//    public void setOwnerId(Long ownerId) {
-//        this.ownerId = ownerId;
-//    }
-
-    public String getAddress(){
+    public String getAddress() {
         return address;
     }
 
@@ -66,7 +54,7 @@ public class Restaurant {
         this.address = address;
     }
 
-    public User getOwner(){
+    public User getOwner() {
         return owner;
     }
 

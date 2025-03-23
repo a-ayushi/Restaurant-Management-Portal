@@ -1,12 +1,12 @@
 package com.restaurant.Restaurant.Management.Portal.controller;
 
-
 import com.restaurant.Restaurant.Management.Portal.model.Restaurant;
 import com.restaurant.Restaurant.Management.Portal.service.RestaurantService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,52 +18,76 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-
-    // Total 5 APIs used for RestaurantController
-
-    //1. POST /restaurants-> Only logged-in owners can create a restaurant.
+    // ✅ 1. CREATE a restaurant (Only OWNER can create)
     @PostMapping
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant, HttpSession session) {
-        Long ownerId = (Long) session.getAttribute("userId");
-        if (ownerId == null) {
-            throw new RuntimeException("User not logged in.");
+    public ResponseEntity<?> createRestaurant(@RequestBody Restaurant restaurant, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        String role = (String) session.getAttribute("role");
+
+        if (userId == null || role == null) {
+            return ResponseEntity.status(401).body("Unauthorized: Please log in.");
         }
-        return restaurantService.createRestaurant(restaurant, ownerId);
+
+        if (!"OWNER".equals(role)) {
+            return ResponseEntity.status(403).body("Forbidden: Only OWNERS can create restaurants.");
+        }
+        Restaurant createdRestaurant = restaurantService.createRestaurant(restaurant, userId);
+
+            return ResponseEntity.ok(createdRestaurant);
+
     }
 
-    //2. GET /restaurants-> Anyone can view all restaurants.
+    // ✅ 2. GET all restaurants (Anyone can access)
     @GetMapping
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantService.getAllRestaurants();
+    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+        return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
 
-
-    //3. GET /restaurant/{id}-> Fetch a specific restaurant by ID.
+    // ✅ 3. GET a restaurant by ID
     @GetMapping("/{id}")
-    public Optional<Restaurant> getRestaurantById(@PathVariable Long id) {
-        return restaurantService.getRestaurantById(id);
+    public ResponseEntity<?> getRestaurantById(@PathVariable Long id) {
+        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
+
+        if (restaurant.isPresent()) {
+            return ResponseEntity.ok(restaurant.get());  // ✅ Returns Restaurant when found
+        } else {
+            return ResponseEntity.status(404).body("Restaurant not found.");  // ✅ Returns String when not found
+        }
     }
 
-    //4. PUT /restaurants/{id} ->  Only the owner of that restaurant can update it.
+
+
+    // ✅ 4. UPDATE restaurant (Only OWNER of that restaurant can update)
     @PutMapping("/{id}")
-    public Restaurant updateRestaurant(@PathVariable Long id, @RequestBody Restaurant restaurant, HttpSession session) {
-        Long ownerId = (Long) session.getAttribute("userId");
-        if (ownerId == null) {
-            throw new RuntimeException("User not logged in.");
+    public ResponseEntity<?> updateRestaurant(@PathVariable Long id, @RequestBody Restaurant restaurant, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId == null) {
+            return ResponseEntity.status(401).body("Unauthorized: Please log in.");
         }
-        return restaurantService.updateRestaurant(id, restaurant, ownerId);
+
+        try {
+            Restaurant updated = restaurantService.updateRestaurant(id, restaurant, userId);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(403).body(e.getMessage());
+        }
     }
 
-    //5. DELETE /restaurants/{id} ->   Only the owner of that restaurant can delete it.
+    // ✅ 5. DELETE restaurant (Only OWNER of that restaurant can delete)
     @DeleteMapping("/{id}")
-    public String deleteRestaurant(@PathVariable Long id, HttpSession session) {
-        Long ownerId = (Long) session.getAttribute("userId");
-        if (ownerId == null) {
-            throw new RuntimeException("User not logged in.");
+    public ResponseEntity<?> deleteRestaurant(@PathVariable Long id, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId == null) {
+            return ResponseEntity.status(401).body("Unauthorized: Please log in.");
         }
-        restaurantService.deleteRestaurant(id, ownerId);
-        return "Restaurant deleted successfully!";
+
+        try {
+            restaurantService.deleteRestaurant(id, userId);
+            return ResponseEntity.ok("Restaurant deleted successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(403).body(e.getMessage());
+        }
     }
-
-
 }
