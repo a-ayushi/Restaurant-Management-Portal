@@ -1,6 +1,5 @@
 package com.restaurant.Restaurant.Management.Portal.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,22 +10,19 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", nullable = false)
-    @JsonIgnoreProperties("restaurants") // Prevent infinite recursion in JSON responses
-    private User owner;  // Reference to the owner of this restaurant
+    // Default constructor
+    public Restaurant() {}
 
-    // Constructors
-    public Restaurant() {
-    }
-
-    public Restaurant(String name, String address, User owner) {
+    // Parameterized constructor
+    public Restaurant(String name, String address) {
         this.name = name;
         this.address = address;
-        this.owner = owner;
     }
 
     // Getters and Setters
@@ -52,13 +48,5 @@ public class Restaurant {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 }

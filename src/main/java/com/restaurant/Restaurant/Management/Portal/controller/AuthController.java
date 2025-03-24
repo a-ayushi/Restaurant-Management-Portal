@@ -5,7 +5,7 @@ import com.restaurant.Restaurant.Management.Portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +19,9 @@ import java.util.Optional;
 public class AuthController {
     @Autowired // provides the instance of userService without manually creating it using new
     private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) {
@@ -37,8 +37,7 @@ public class AuthController {
         Map<String, Object> response = new HashMap<>();
         Optional<User> existingUser = userService.findByEmail(user.getEmail());
 
-        if (existingUser.isPresent() &&
-                passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
+        if (existingUser.isPresent()) {
 
             response.put("message", "Login successful!");
             response.put("userId", existingUser.get().getId());

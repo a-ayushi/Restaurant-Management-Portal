@@ -14,42 +14,26 @@ document.addEventListener("DOMContentLoaded", function () {
         const name = document.getElementById("restaurant-name").value;
         const address = document.getElementById("restaurant-address").value;
 
-        // Fetch userId and role from localStorage
-        const userId = localStorage.getItem("userId");
-        const role = localStorage.getItem("role");
-
-        alert(userId);
-
-//
-//        if (!userId || !role) {
-//            alert("Unauthorized: Please log in.");
-//            return;
-//        }
-
         fetch("http://localhost:8080/restaurants", {
             method: "POST",
-            credentials: "include", // Ensure cookies/session work
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ name, address }) // Send userId & role
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(msg => { throw new Error(msg); });
-            }
-            return response.json();
-        })
+ .then(response => response.json())
         .then(data => {
-            alert("Restaurant added successfully!");
+            alert("Restaurant created successfully!");
+  // ✅ Hide the form after successful creation
             restaurantFormContainer.style.display = "none";
-            restaurantForm.reset();
-            fetchRestaurants();
+
+            // ✅ Clear the form fields
+            restaurantForm.reset();            fetchRestaurants();  // Refresh list
+
         })
-        .catch(error => {
-            alert("Error adding restaurant: " + error.message);
-        });
+        .catch(error => console.error("Error creating restaurant:", error));
     });
+
 
     function fetchRestaurants() {
         fetch("http://localhost:8080/restaurants")
@@ -60,6 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     const div = document.createElement("div");
                     div.innerHTML = `<h3>${restaurant.name}</h3>
                     <p>${restaurant.address}</p>`;
+
+                       div.addEventListener("click", function () {
+                                            window.location.href = `menu.html?restaurantId=${restaurant.id}`;
+                                        });
+
                     restaurantList.appendChild(div);
                 });
             })

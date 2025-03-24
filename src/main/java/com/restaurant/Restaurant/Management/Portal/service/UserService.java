@@ -2,7 +2,7 @@ package com.restaurant.Restaurant.Management.Portal.service;
 import com.restaurant.Restaurant.Management.Portal.model.User;
 import com.restaurant.Restaurant.Management.Portal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 @Service
@@ -10,8 +10,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     public User registerUser(User user) {
         // Check if user already exists
@@ -19,7 +19,7 @@ public class UserService {
             throw new RuntimeException("Error: Email is already in use!");
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
+//        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
         return userRepository.save(user);
     }
 
