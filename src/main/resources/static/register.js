@@ -1,4 +1,3 @@
-
 // Show Register Form, Hide Login Form
 document.addEventListener("DOMContentLoaded", function () {
     showRegister();
@@ -12,6 +11,7 @@ function showRegister() {
         console.error("register-container not found!");
     }
 }
+
 // Handle Registration Submission
 document.getElementById("register-form").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -24,15 +24,12 @@ document.getElementById("register-form").addEventListener("submit", function (ev
         return;
     }
 
-//    console.log("Registering:", { email, password, role });
-
     fetch("http://localhost:8080/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role })
     })
     .then(response => {
-        // Optionally check the Content-Type header to decide how to parse
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
             return response.json().then(data => ({ type: "json", data, status: response.status }));
@@ -41,26 +38,18 @@ document.getElementById("register-form").addEventListener("submit", function (ev
         }
     })
     .then(({ type, data, status }) => {
-//        console.log("Response Data:", data);
         console.log("Response Status:", status);
-        if (type === "json") {
-            if (status === 200) {
-                alert("Registration Successful! Redirecting to login...");
-                window.location.href = "login.html";
-            } else {
-                alert("Registration failed: " + (data.error || "Unknown error"));
-            }
-        } else { // Handling text response
-            if (data.includes("successful")) {
-                alert("Registration Successful! Redirecting to login...");
-                window.location.href = "login.html";
-            } else {
-                alert("Registration failed: " + data);
-            }
+        // Check if the status code indicates success (200-299)
+        if (status >= 200 && status < 300) {
+            alert("Registration Successful! Redirecting to login...");
+            window.location.href = "login.html";
+        } else {
+            let errorMsg = type === "json" ? (data.error || "Unknown error") : data;
+            alert("Registration failed: " + errorMsg);
         }
     })
     .catch(error => {
         console.error("Fetch Error:", error);
         alert("Registration failed due to a network error.");
-});
+    });
 });

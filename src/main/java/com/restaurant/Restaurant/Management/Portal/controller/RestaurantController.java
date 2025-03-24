@@ -29,13 +29,17 @@ public class RestaurantController {
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
         return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
-
-    // ✅ 3. GET a restaurant by ID
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> getRestaurantById(@PathVariable Long id) {
-//        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
-//
-//        return restaurant.map(ResponseEntity::ok)  // ✅ Return the restaurant if found
-//                .orElseGet(() -> ResponseEntity.status(404).body("Restaurant not found"));  // ✅ Return String when not found
-//    }
+  
+  // ✅ 3. GET a restaurant by User ID
+  @GetMapping("/user/{userId}")
+  public ResponseEntity<?> getRestaurantByUserId(@PathVariable Long userId) {
+      Optional<Restaurant> restaurant = restaurantService.getRestaurantByUserId(userId);
+      if (restaurant.isPresent()) {
+          return ResponseEntity.ok(restaurant.get());
+      } else {
+          return ResponseEntity.status(404).body("Restaurant not found for user id " + userId);
+      }
+  }
+  
+  
 }

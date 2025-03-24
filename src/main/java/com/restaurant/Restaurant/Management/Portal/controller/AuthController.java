@@ -2,15 +2,21 @@ package com.restaurant.Restaurant.Management.Portal.controller;
 
 import com.restaurant.Restaurant.Management.Portal.model.User;
 import com.restaurant.Restaurant.Management.Portal.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import jakarta.servlet.http.HttpSession;
+
 import java.util.Optional;
+
+import com.restaurant.Restaurant.Management.Portal.model.Role;
 
 
 @RestController
@@ -22,15 +28,20 @@ public class AuthController {
 //
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/register")
-    public String registerUser(@RequestBody User user) {
-        if (user.getRole() == null) {
-            return "Error: Role must be CUSTOMER or OWNER";
-        }
-        userService.registerUser(user);
-        return "User registered successfully!";
+@PostMapping("/register")
+public ResponseEntity<String> registerUser(@RequestBody User user) {
+    if (user.getRole() == null) {
+        return ResponseEntity.badRequest().body("Error: Role must be CUSTOMER or OWNER");
     }
+    
+    userService.registerUser(user);
+    
+    if (user.getRole().equals(Role.CUSTOMER)) {
+        return ResponseEntity.ok("Registered as CUSTOMER. Redirecting to login...");
+    } else {
+        return ResponseEntity.ok("Registered as OWNER.");
+    }
+}
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {

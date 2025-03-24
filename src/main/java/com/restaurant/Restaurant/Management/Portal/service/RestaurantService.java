@@ -24,8 +24,8 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    // Fetch a restaurant by ID
-    public Optional<Restaurant> getRestaurantById(Long id) {
-        return restaurantRepository.findById(id);
+    // Fetch a restaurant by userId using the custom repository method
+    public Optional<Restaurant> getRestaurantByUserId(Long userId) {
+        return restaurantRepository.findByUserId(userId);
     }
 }

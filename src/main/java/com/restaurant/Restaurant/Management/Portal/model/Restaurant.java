@@ -16,13 +16,23 @@ public class Restaurant {
     @Column(nullable = false)
     private String address;
 
+    // This field stores the ID of the user associated with this restaurant.
+    private Long userId;
+
     // Default constructor
     public Restaurant() {}
 
-    // Parameterized constructor
+    // Parameterized constructor (without userId)
     public Restaurant(String name, String address) {
         this.name = name;
         this.address = address;
+    }
+    
+    // Parameterized constructor (with userId)
+    public Restaurant(String name, String address, Long userId) {
+        this.name = name;
+        this.address = address;
+        this.userId = userId;
     }
 
     // Getters and Setters
@@ -48,5 +58,24 @@ public class Restaurant {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    // Optional: Override toString() for better logging/debugging
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", userId=" + userId +
+                '}';
     }
 }

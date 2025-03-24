@@ -14,8 +14,13 @@ document.getElementById("login-form").addEventListener("submit", function (event
         if (data.userId) {
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("role", data.role); // Store user role
-            alert("Login Successful!");
-            window.location.href = "dashboard.html";
+// =            alert("Login Successful!");
+            if (data.role === "CUSTOMER") {
+                window.location.href = "index.html"; // Redirect CUSTOMER to login
+            }
+            else{
+                window.location.href = "dashboard.html";
+            }
         } else {
             alert("Login failed: " + data.message);
         }
@@ -28,14 +33,4 @@ document.getElementById("login-form").addEventListener("submit", function (event
 
 
 
-//logout implementaiton
-document.getElementById("logout-btn").addEventListener("click", function () {
-    fetch("http://localhost:8080/auth/logout", {
-        method: "POST"
-    }).then(() => {
-        localStorage.removeItem("userId");
-        localStorage.removeItem("role");
-        alert("Logout successful!");
-        window.location.href = "login.html";
-    }).catch(error => console.error("Logout error:", error));
-});
+
