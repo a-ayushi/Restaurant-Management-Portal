@@ -36,9 +36,9 @@ public class AuthController {
     public Map<String, Object> login(@RequestBody User user) {
         Map<String, Object> response = new HashMap<>();
         Optional<User> existingUser = userService.findByEmail(user.getEmail());
-
-        if (existingUser.isPresent()) {
-
+if (existingUser.isPresent()) {
+    User userFromDb = existingUser.get();
+    if (userFromDb.getPassword().equals(user.getPassword())) {
             response.put("message", "Login successful!");
             response.put("userId", existingUser.get().getId());
             response.put("role", existingUser.get().getRole().toString());
@@ -48,6 +48,8 @@ public class AuthController {
             return response;
         }
     }
+    return response;
+}
     @PostMapping("/logout")
     public String logout() {
         return "Logout successful!";
