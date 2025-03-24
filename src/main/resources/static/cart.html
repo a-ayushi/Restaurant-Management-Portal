@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car</title>
+  <title>Cart</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,17 +12,18 @@
   <ul>
     <li><a href="menu.html">Menu</a></li>
     <li><a href="cart.html">Cart</a></li>
-    <li><a href="#">Logout</a></li>
+    <li><a href="#" onclick="logout()">Logout</a></li>
   </ul>
 </nav>
 
 <div class="cart-container">
   <h2>Your Cart</h2>
+  <h2></h2>
   <div id="cart-items"></div>
-  <h3>Total: $<span id="total-price">0</span></h3>
+  <h3>Total: ₹<span id="total-price">0</span></h3>
   <button onclick="checkout()">Proceed to Checkout</button>
 </div>
 
-<script src="script.js"></script>
+<script src="cart.js"></script> <!-- ✅ Separate JS file for cart logic -->
 </body>
 </html>
