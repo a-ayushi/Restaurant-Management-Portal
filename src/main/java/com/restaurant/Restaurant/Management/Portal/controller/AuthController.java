@@ -5,7 +5,7 @@ import com.restaurant.Restaurant.Management.Portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +19,9 @@ import java.util.Optional;
 public class AuthController {
     @Autowired // provides the instance of userService without manually creating it using new
     private UserService userService;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public String registerUser(@RequestBody User user) {
@@ -38,15 +38,18 @@ public class AuthController {
         Optional<User> existingUser = userService.findByEmail(user.getEmail());
 
         if (existingUser.isPresent()) {
-
-            response.put("message", "Login successful!");
-            response.put("userId", existingUser.get().getId());
-            response.put("role", existingUser.get().getRole().toString());
-            return response;
-        } else {
-            response.put("message", "Invalid credentials");
-            return response;
+            User userFromDb = existingUser.get();
+            if (userFromDb.getPassword().equals(user.getPassword())) {
+                response.put("message", "Login successful!");
+                response.put("userId", existingUser.get().getId());
+                response.put("role", existingUser.get().getRole().toString());
+                return response;
+            } else {
+                response.put("message", "Invalid credentials");
+                return response;
+            }
         }
+        return response;
     }
     @PostMapping("/logout")
     public String logout() {

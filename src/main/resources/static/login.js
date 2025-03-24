@@ -12,10 +12,15 @@ document.getElementById("login-form").addEventListener("submit", function (event
     .then(response => response.json())
     .then(data => {
         if (data.userId) {
-            localStorage.setItem("userId", data.userId);
-            localStorage.setItem("role", data.role); // Store user role
-            alert("Login Successful!");
-            window.location.href = "dashboard.html";
+//            localStorage.setItem("userId", data.userId);
+//            localStorage.setItem("role", data.role); // Store user role
+//            alert("Login Successful!");
+            if(data.role===='CUSTOMER'){
+             window.location.href="index.html";
+            }
+            else{
+               window.location.href = "dashboard.html";
+            }
         } else {
             alert("Login failed: " + data.message);
         }
@@ -26,9 +31,7 @@ document.getElementById("login-form").addEventListener("submit", function (event
     });
 });
 
-
-
-//logout implementaiton
+//logout implementation
 document.getElementById("logout-btn").addEventListener("click", function () {
     fetch("http://localhost:8080/auth/logout", {
         method: "POST"
@@ -36,6 +39,8 @@ document.getElementById("logout-btn").addEventListener("click", function () {
         localStorage.removeItem("userId");
         localStorage.removeItem("role");
         alert("Logout successful!");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }).catch(error => console.error("Logout error:", error));
 });
+
+

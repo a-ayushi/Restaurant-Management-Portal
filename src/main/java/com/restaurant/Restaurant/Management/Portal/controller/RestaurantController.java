@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:63342") // Adjust frontend origin if needed
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
 @RequestMapping("/restaurants")
 public class RestaurantController {
