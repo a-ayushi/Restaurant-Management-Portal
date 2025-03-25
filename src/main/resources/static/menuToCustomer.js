@@ -9,6 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+//     //  Fetch restaurant name dynamically
+//        fetch(`http://localhost:8080/restaurants/${restaurantId}`)
+//            .then(response => response.json())
+//            .then(restaurant => {
+//                document.getElementById("restaurant-name").textContent = restaurant.name;
+//            })
+//            .catch(error => console.error("Error fetching restaurant:", error));
+//
+
+
     fetch(`http://localhost:8080/menus/${restaurantId}`)
         .then(response => response.json())
         .then(menuItems => {
@@ -20,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 menuItems.forEach(item => {
                     const div = document.createElement("div");
-                    console.log(restaurantId);
                     div.innerHTML = `
                     <img src="${item.imageUrl}" alt="${item.name}" class="menu-image"> <!--  Display menu image -->
                     <div class="menu-content">
