@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuSubmitBtn = menuForm.querySelector("button[type='submit']");
     const restaurantNameElement = document.getElementById("restaurant-name");
 
-    let isUpdating = false;  // ✅ Track whether we're in "update" mode
-    let updatingMenuId = null;  // ✅ Store the ID of the menu being updated
+    let isUpdating = false;  //  Track whether we're in "update" mode
+    let updatingMenuId = null;  // Store the ID of the menu being updated
 
     // Get restaurantId from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         li.classList.add("menu-item");
 
                         li.innerHTML = `
+                        <img src="${item.imageUrl}" alt="${item.name}" class="menu-image">
                             <span><strong>${item.name}</strong> - ₹${item.price.toFixed(2)}</span>
                             <div class="menu-buttons">
                                 <button class="update-btn" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Update</button>
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         menuList.appendChild(li);
                     });
 
-                    // ✅ Attach event listeners to buttons
+                    // Attach event listeners to buttons
                     document.querySelectorAll(".update-btn").forEach(button => {
                         button.addEventListener("click", function () {
                             showUpdateForm(this.dataset.id, this.dataset.name, this.dataset.price);
@@ -75,9 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
     addMenuBtn.addEventListener("click", () => {
         menuFormContainer.style.display = "block";
         menuForm.reset();
-        isUpdating = false;  // ✅ Set to "Add" mode
+        isUpdating = false;  // Set to "Add" mode
         updatingMenuId = null;
-        menuSubmitBtn.textContent = "Add Menu";  // ✅ Change button text
+        menuSubmitBtn.textContent = "Add Menu";  // Change button text
     });
 
     // ✅ Handle form submission (Add or Update based on mode)
@@ -86,13 +87,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const name = document.getElementById("menu-name").value;
         const price = document.getElementById("menu-price").value;
+        const imageFile = document.getElementById("menu-image").files[0];
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("price", price);
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
+
 
         if (isUpdating) {
             // ✅ Update existing menu item
             fetch(`http://localhost:8080/menus/${updatingMenuId}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, price })
+                body:formData
+//                headers: { "Content-Type": "application/json" },
+//                body: JSON.stringify({ name, price })
             })
             .then(response => response.json())
             .then(() => {
@@ -105,8 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // ✅ Add a new menu item
             fetch(`http://localhost:8080/menus/${restaurantId}`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, price })
+                body:formData
+//                headers: { "Content-Type": "application/json" },
+//                body: JSON.stringify({ name, price })
             })
             .then(response => response.json())
             .then(() => {
@@ -124,12 +136,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("menu-name").value = name;
         document.getElementById("menu-price").value = price;
 
-        isUpdating = true;  // ✅ Switch to "Update" mode
+        isUpdating = true;  // Switch to "Update" mode
         updatingMenuId = menuId;
-        menuSubmitBtn.textContent = "Update Menu";  // ✅ Change button text
+        menuSubmitBtn.textContent = "Update Menu";  //  Change button text
     }
 
-    // ✅ Delete menu item
+    //  Delete menu item
     function deleteMenuItem(menuId) {
         if (confirm("Are you sure you want to delete this item?")) {
             fetch(`http://localhost:8080/menus/${menuId}`, {
