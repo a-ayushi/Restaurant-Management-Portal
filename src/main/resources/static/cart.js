@@ -31,15 +31,19 @@ function fetchCartItems(userId) {
             cartItems.forEach(item => {
                 const div = document.createElement("div");
                 div.classList.add("cart-item");
-                div.innerHTML = `
-                    <p><strong>${item.itemName}</strong></p>
-                    <p>Price: ₹${item.itemPrice} | Quantity: ${item.quantity}</p>
-                    <p>Restaurant: ${item.restaurant.name}</p>
-                    <button onclick="removeFromCart(${item.id})">Remove</button>
-                `;
+
+              div.innerHTML = `
+                                  <img src="${item.imageUrl}" alt="${item.itemName}" class="cart-item-image">  <!--  Display food image -->
+                                  <div class="cart-item-details">
+                                      <p><strong>${item.itemName}</strong></p>
+                                      <p>Price: ₹${item.itemPrice} | Quantity: ${item.quantity}</p>
+                                      <p>Restaurant: ${item.restaurant.name}</p>
+                                  </div>
+                                  <button onclick="removeFromCart(${item.id})">Remove</button>
+                              `;
                 cartContainer.appendChild(div);
 
-                totalPrice += item.itemPrice * item.quantity; // ✅ Calculate total price
+                totalPrice += item.itemPrice * item.quantity; //  Calculate total price
             });
 
             totalPriceElement.textContent = totalPrice.toFixed(2); // ✅ Update total price

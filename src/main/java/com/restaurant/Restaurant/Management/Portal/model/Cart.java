@@ -16,7 +16,9 @@ public class Cart {
 
     private String itemName; // ✅ Store the name of the menu item
     private double itemPrice; // ✅ Store the price of the menu item
-    private int quantity; // ✅ Quantity of item in cart
+    private String imageUrl; //  Store the image URL of the menu item
+    private int quantity; // Quantity of item in cart
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -30,13 +32,14 @@ public class Cart {
     public Cart() {}
 
     // ✅ Parameterized Constructor
-    public Cart(Menu menuItem, String itemName, double itemPrice, int quantity, User user, Restaurant restaurant) {
+    public Cart(Menu menuItem, String itemName, double itemPrice, int quantity, User user, Restaurant restaurant,String imageUrl) {
         this.menuItem = menuItem;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.quantity = quantity;
         this.user = user;
         this.restaurant = restaurant;
+        this.imageUrl=imageUrl;
     }
 
     // ✅ Getters and Setters
@@ -95,4 +98,13 @@ public class Cart {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    public String getImageUrl() { //  Getter for Image URL
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) { //  Setter for Image URL
+        this.imageUrl = imageUrl;
+    }
+
 }

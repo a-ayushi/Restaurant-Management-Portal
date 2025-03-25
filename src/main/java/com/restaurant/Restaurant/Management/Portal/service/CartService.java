@@ -47,7 +47,7 @@ public class CartService {
         }
 
         // New cart item
-        Cart cartItem = new Cart(menuItem, menuItem.getName(), menuItem.getPrice(), 1, user, restaurant);
+        Cart cartItem = new Cart(menuItem, menuItem.getName(), menuItem.getPrice(), 1, user, restaurant,menuItem.getImageUrl());
         cartRepository.save(cartItem);
         return "Item added to cart successfully!";
     }

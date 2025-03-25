@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cart")
@@ -34,9 +35,30 @@ public class CartController {
 
     //  Get all cart items for a user
     @GetMapping("/{userId}")
-    public ResponseEntity<List<Cart>> getCartItems(@PathVariable Long userId) {
-        return ResponseEntity.ok(cartService.getCartItems(userId));
+    public ResponseEntity<List<Map<String, Object>>> getCartItems(@PathVariable Long userId) {
+        List<Cart> cartItems = cartService.getCartItems(userId);
+
+        // ✅ Convert Cart objects into a structured JSON response with `imageUrl`
+        List<Map<String, Object>> response = cartItems.stream().map(cart -> Map.of(
+                "id", cart.getId(),
+                "menuItemId", cart.getMenuItem().getId(),
+                "itemName", cart.getItemName(),
+                "itemPrice", cart.getItemPrice(),
+                "quantity", cart.getQuantity(),
+                "restaurant", Map.of(
+                        "id", cart.getRestaurant().getId(),
+                        "name", cart.getRestaurant().getName()
+                ),
+                "imageUrl", cart.getMenuItem().getImageUrl() // ✅ Include image URL
+        )).collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
     }
+
+//    @GetMapping("/{userId}")
+//    public ResponseEntity<List<Cart>> getCartItems(@PathVariable Long userId) {
+//        return ResponseEntity.ok(cartService.getCartItems(userId));
+//    }
 
     // ✅ Remove a specific item from the cart
     @DeleteMapping("/remove/{cartItemId}")
