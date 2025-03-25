@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Management Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 <nav class="navbar">
@@ -24,9 +24,21 @@
     <div id="restaurant-form-container" style="display: none;">
         <h3>Add a New Restaurant</h3>
         <form id="restaurant-form">
-            <input type="text" id="restaurant-name" placeholder="Restaurant Name" required>
-            <input type="text" id="restaurant-address" placeholder="Restaurant Address" required>
-            <button type="submit">Create</button>
+<!--            <input type="text" id="restaurant-name" placeholder="Restaurant Name" required>-->
+<!--            <input type="text" id="restaurant-address" placeholder="Restaurant Address" required>-->
+<!--            <button type="submit">Create</button>-->
+
+<!--            form will add images also-->
+            <label for="restaurant-name">Restaurant Name:</label>
+            <input type="text" id="restaurant-name" required>
+
+            <label for="restaurant-address">Address:</label>
+            <input type="text" id="restaurant-address" required>
+
+            <label for="restaurant-image">Upload Image:</label>
+            <input type="file" id="restaurant-image" accept="image/*" required>
+
+            <button type="submit">Create Restaurant</button>
         </form>
     </div>
 

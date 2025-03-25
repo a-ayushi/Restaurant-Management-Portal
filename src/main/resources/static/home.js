@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             restaurants.forEach(restaurant => {
                 const div = document.createElement("div");
-                div.innerHTML = `<h3>${restaurant.name}</h3><p>${restaurant.address}</p>`;
+                 div.classList.add("restaurant-card");
+                div.innerHTML = `<img src="${restaurant.imageUrl}" alt="${restaurant.name}" class="restaurant-image"> <!-- ✅ Display image -->
+                                 <h3>${restaurant.name}</h3>
+                                 <p>${restaurant.address}</p>`;
 
                 // ✅ Allow only CUSTOMERS to click and view menu
                 if (role === "CUSTOMER") {

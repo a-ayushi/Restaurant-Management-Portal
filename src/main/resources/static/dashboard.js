@@ -8,23 +8,40 @@ document.addEventListener("DOMContentLoaded", function () {
   function restaurantExistsForUser(restaurants) {
     return restaurants.some(restaurant => restaurant.userId && restaurant.userId.toString() === userId);
   }
+
+      // Show form when Add Restaurant button is clicked
   addRestaurantBtn.addEventListener("click", function () {
     restaurantFormContainer.style.display = "block";
   });
 
+
+//handle restaurant form submission
   restaurantForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const name = document.getElementById("restaurant-name").value;
     const address = document.getElementById("restaurant-address").value;
+    const imageFile = document.getElementById("restaurant-image").files[0]; // Get image
+
+        if (!imageFile) {
+            alert("Please select an image!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("address", address);
+        formData.append("ownerId", userId);
+        formData.append("image", imageFile);
 
     fetch("http://localhost:8080/restaurants", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        userId: userId,
-      },
-      body: JSON.stringify({ name, address, userId }),
+//      headers: {
+//        "Content-Type": "application/json",
+//        userId: userId,
+//      },
+      body:formData
+//      body: JSON.stringify({ name, address, userId }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -63,9 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
           const div = document.createElement("div");
           div.classList.add("restaurant-card");
           div.innerHTML = `
+             <img src="${restaurant.imageUrl}" alt="${restaurant.name}" class="restaurant-image">  <!--  Display image -->
             <h3>${restaurant.name}</h3>
             <p>${restaurant.address}</p>
           `;
+
           div.addEventListener("click", function () {
             window.location.href = `menu.html?restaurantId=${restaurant.id}`;
           });
