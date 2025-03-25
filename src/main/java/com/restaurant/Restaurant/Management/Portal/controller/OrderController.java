@@ -1,8 +1,10 @@
 package com.restaurant.Restaurant.Management.Portal.controller;
+import com.restaurant.Restaurant.Management.Portal.dto.OrderRequestDTO;
 import com.restaurant.Restaurant.Management.Portal.model.Order;
 import com.restaurant.Restaurant.Management.Portal.model.OrderStatus;
 import com.restaurant.Restaurant.Management.Portal.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class OrderController {
     // Place an order
     @PostMapping
     public Order placeOrder(@RequestBody Order order) {
+
         return orderService.placeOrder(order);
     }
 

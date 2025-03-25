@@ -3,6 +3,7 @@ package com.restaurant.Restaurant.Management.Portal.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +21,10 @@ public class Order {
     private OrderStatus status;
 
     private LocalDateTime createdAt;
+
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems;
 
     public Order() {
         this.createdAt = LocalDateTime.now();

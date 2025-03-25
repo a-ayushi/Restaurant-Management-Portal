@@ -1,8 +1,12 @@
 package com.restaurant.Restaurant.Management.Portal.service;
 
 
+import com.restaurant.Restaurant.Management.Portal.model.OrderItem;
+import com.restaurant.Restaurant.Management.Portal.model.Menu;
 import com.restaurant.Restaurant.Management.Portal.model.Order;
 import com.restaurant.Restaurant.Management.Portal.model.OrderStatus;
+import com.restaurant.Restaurant.Management.Portal.repository.MenuRepository;
+import com.restaurant.Restaurant.Management.Portal.repository.OrderItemRepository;
 import com.restaurant.Restaurant.Management.Portal.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +17,50 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
+      // Place an order
     @Autowired
     private OrderRepository orderRepository;
 
-    // Place an order
-    public Order placeOrder(Order order) {
-        order.setStatus(OrderStatus.valueOf("Pending")); // Default status when placing an order
-        return orderRepository.save(order);
+    @Autowired
+    private OrderItemRepository orderItemRepository; // New Repository for OrderItems
+
+    @Autowired
+    private MenuRepository menuRepository; // To fetch menu items
+
+
+    public Order placeOrder(Order orderRequest) {
+        if (orderRequest.getOrderItems().isEmpty()) {
+            throw new RuntimeException("Cannot place an empty order.");
+        }
+
+        // Calculate total price
+        double totalPrice = orderRequest.getOrderItems().stream()
+                .mapToDouble(item -> item.getPrice() * item.getQuantity())
+                .sum();
+
+        // Create order
+        Order order = new Order(orderRequest.getUserId(), orderRequest.getRestaurantId(), totalPrice);
+        order.setStatus(OrderStatus.PENDING);
+        order = orderRepository.save(order); // Save Order First
+
+        // Create order items & save
+        for (OrderItemDTO itemDTO : orderRequest.getOrderItems()) {
+            Menu menuItem = menuRepository.findById(itemDTO.getMenuItemId())
+                    .orElseThrow(() -> new RuntimeException("Menu item not found"));
+
+            OrderItem orderItem = new OrderItem(order, menuItem, itemDTO.getQuantity(), itemDTO.getPrice());
+            orderItemRepository.save(orderItem);
+        }
+
+        return order;
     }
+
+//    public Order placeOrder(Order order) {
+//        order.setStatus(OrderStatus.valueOf("PENDING")); // Default status when placing an order
+//        return orderRepository.save(order);
+//    }
+
+
     // Get order status (Only the user who placed the order can check)
     public OrderStatus getOrderStatus(Long orderId, Long userId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
