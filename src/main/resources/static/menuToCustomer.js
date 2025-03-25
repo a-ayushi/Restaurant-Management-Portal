@@ -22,8 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     const div = document.createElement("div");
                     console.log(restaurantId);
                     div.innerHTML = `
-                        <p>${item.name} - ₹${item.price}</p>
-                    ${role === "CUSTOMER" ? `<button onclick="addToCart(${item.id}, '${item.name}', ${item.price}, ${restaurantId})">Add to Cart</button>` : ""}
+                    <img src="${item.imageUrl}" alt="${item.name}" class="menu-image"> <!--  Display menu image -->
+                    <div class="menu-content">
+                        <p>${item.name} - ₹${item.price.toFixed(2)}</p>
+                    </div>
+                    ${role === "CUSTOMER" ? `<button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, ${restaurantId})">Add to Cart</button>` : ""}
 
                     `;
                     menuList.appendChild(div);
@@ -56,7 +59,7 @@ function addToCart(menuItemId,itemName,itemPrice,restaurantId) {
         .then(data => {
                 console.log("Response from server:", data);  // Debug server response
 
-            if (data.success) {
+            if (data) {
                 alert("Item added to cart successfully!");
             } else {
                 alert("Failed to add item to cart.");

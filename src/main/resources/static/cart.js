@@ -34,7 +34,7 @@ function fetchCartItems(userId) {
                 div.innerHTML = `
                     <p><strong>${item.itemName}</strong></p>
                     <p>Price: ₹${item.itemPrice} | Quantity: ${item.quantity}</p>
-                    <p>Restaurant: ${item.restaurantName}</p>
+                    <p>Restaurant: ${item.restaurant.name}</p>
                     <button onclick="removeFromCart(${item.id})">Remove</button>
                 `;
                 cartContainer.appendChild(div);

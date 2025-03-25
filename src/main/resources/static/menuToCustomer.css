@@ -10,43 +10,82 @@ body {
 }
 
 .container {
-    width: 80%;
-    max-width: 600px;
+    width: 90%;
+    max-width: 900px;
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h2 {
-    text-align: center;
     color: #333;
+    margin-bottom: 20px;
 }
 
+/* ✅ Menu Grid Layout */
 #menu-list {
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 20px;
+    padding: 0;
+    list-style: none;
 }
 
+/* ✅ Menu Card */
 .menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 10px;
+    background: white;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+    transform: scale(1.05);
+}
+
+/* ✅ Menu Image */
+.menu-image {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 
-.menu-item button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
+/* ✅ Menu Content */
+.menu-content {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }
 
-.menu-item button:hover {
-    background: #218838;
+/* ✅ Add to Cart Button */
+.add-to-cart-btn {
+    background: #ff6600;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-cart-btn:hover {
+    background: #cc5200;
+    transform: scale(1.08);
+}
+
+.add-to-cart-btn:active {
+    background: #b34700;
+    transform: scale(1);
 }
