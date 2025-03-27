@@ -8,30 +8,30 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // ✅ Unique ID for cart item
+    private Long id; //  Unique ID for cart item
 
     @ManyToOne
     @JoinColumn(name = "menu_item_id", nullable = false)
-    private Menu menuItem; // ✅ Menu item being added to cart
+    private Menu menuItem; //  Menu item being added to cart
 
-    private String itemName; // ✅ Store the name of the menu item
-    private double itemPrice; // ✅ Store the price of the menu item
+    private String itemName; //  Store the name of the menu item
+    private double itemPrice; //  Store the price of the menu item
     private String imageUrl; //  Store the image URL of the menu item
     private int quantity; // Quantity of item in cart
 
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user; // ✅ User who added the item to the cart
+    private User user; //  User who added the item to the cart
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
-    private Restaurant restaurant; // ✅ Restaurant from which the item is added
+    private Restaurant restaurant; //  Restaurant from which the item is added
 
-    // ✅ Default Constructor
+    //  Default Constructor
     public Cart() {}
 
-    // ✅ Parameterized Constructor
+    // Parameterized Constructor
     public Cart(Menu menuItem, String itemName, double itemPrice, int quantity, User user, Restaurant restaurant,String imageUrl) {
         this.menuItem = menuItem;
         this.itemName = itemName;
@@ -42,7 +42,7 @@ public class Cart {
         this.imageUrl=imageUrl;
     }
 
-    // ✅ Getters and Setters
+    //  Getters and Setters
     public Long getId() {
         return id;
     }
