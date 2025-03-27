@@ -1,51 +1,92 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-}
 
-/* Navbar */
+/* Navbar Styles */
 .navbar {
-    background-color: #ff6600;
-    padding: 15px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    background-color: #343a40;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Keeps navbar on top */
 }
 
-.navbar a {
+.navbar .logo {
     color: white;
+    font-size: 24px;
+    font-weight: bold;
     text-decoration: none;
-    font-size: 20px;
 }
 
 .navbar ul {
-    list-style-type: none;
+    list-style: none;
+    display: flex;
+    gap: 20px;
     margin: 0;
     padding: 0;
-    display: flex;
 }
 
 .navbar ul li {
-    margin: 0 15px;
+    display: inline;
 }
 
 .navbar ul li a {
     color: white;
     text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
 }
+
+.navbar ul li a:hover {
+    color: #ff6b6b;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons button {
+    padding: 8px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.auth-buttons button:hover {
+    background-color: white;
+    color: #343a40;
+}
+
+/*  Adjust body to prevent content overlap */
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding-top: 80px; /* Prevents content from hiding under navbar*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 
 /* Container */
 .dashboard-container {
-    max-width: 800px;
+    width: 60%;
     margin: 30px auto;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align:center;
 }
 
 /* Add Restaurant Button */
@@ -64,6 +105,7 @@ body {
 #add-restaurant-btn:hover {
     background-color: #e65c00;
 }
+
 
 /* Restaurant Form */
 #restaurant-form-container {
@@ -107,6 +149,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 .restaurant-card {
@@ -114,9 +157,16 @@ body {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: calc(50% - 20px);
+    width: 80%;
     cursor: pointer;
     text-align: center;
+     overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height:auto;
+        margin:20px;
+
 }
 
 .restaurant-card:hover {
@@ -125,11 +175,12 @@ body {
 
 /* Restaurant Image */
 .restaurant-image {
-    width: 100%;
-    height: 150px;
+    width:100%;
+    height: 200px;
     object-fit: cover;
     border-radius: 5px;
-    margin-bottom: 10px;
+   margin-bottom: 10px;
+
 }
 
 /* Logout Button */
@@ -141,6 +192,7 @@ body {
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
+
 }
 
 #logout-btn:hover {

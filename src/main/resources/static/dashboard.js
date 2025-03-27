@@ -36,12 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch("http://localhost:8080/restaurants", {
       method: "POST",
-//      headers: {
-//        "Content-Type": "application/json",
-//        userId: userId,
-//      },
       body:formData
-//      body: JSON.stringify({ name, address, userId }),
     })
       .then((response) => response.json())
       .then((data) => {
