@@ -14,7 +14,7 @@ document.getElementById("login-form").addEventListener("submit", function (event
         if (data.userId) {
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("role", data.role); // Store user role
-// =            alert("Login Successful!");
+//          alert("Login Successful!");
             if (data.role === "CUSTOMER") {
                 window.location.href = "index.html"; // Redirect CUSTOMER to login
             }
