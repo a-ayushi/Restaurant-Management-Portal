@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Orders</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="orders.css">
 </head>
 <body>
 <nav class="navbar">
@@ -13,15 +13,17 @@
     <li><a href="menu.html">Menu</a></li>
     <li><a href="cart.html">Cart</a></li>
     <li><a href="orders.html">Orders</a></li>
-    <li><a href="#">Logout</a></li>
+<!--    <li><a href="#">Logout</a></li>-->
+    <li><a href="#" onclick="logout()">Logout</a></li>
+
   </ul>
 </nav>
 
-<div class="orders-container">
-  <h2>Your Orders</h2>
+<div class="container">
+  <h2>Manage Orders</h2>
   <div id="orders-list"></div>
 </div>
 
-<script src="script.js"></script>
+<script src="orders.js"></script>
 </body>
 </html>
