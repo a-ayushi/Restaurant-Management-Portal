@@ -38,7 +38,7 @@ public class MenuService {
     }
 
 
-    // ✅ Add a new menu item with an image
+    // Add a new menu item with an image
     public Menu addMenuItem(Long restaurantId, String name, double price, MultipartFile imageFile) {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found"));
@@ -83,7 +83,7 @@ public class MenuService {
     }
 
 
-    // ✅ Helper method to save images
+    //  Helper method to save images
     private String saveImage(MultipartFile imageFile) {
         try {
             if (imageFile == null || imageFile.isEmpty()) {
@@ -99,7 +99,7 @@ public class MenuService {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(imageFile.getInputStream(), filePath);
 
-            return "/uploads/" + fileName; // ✅ Return relative path for frontend
+            return "/uploads/" + fileName; // Return relative path for frontend
         } catch (IOException e) {
             throw new RuntimeException("Error saving image: " + e.getMessage());
         }

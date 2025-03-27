@@ -24,7 +24,7 @@ public class MenuController {
         return ResponseEntity.ok(menuService.getMenuByRestaurant(restaurantId));
     }
 
-    // ✅ 2. POST add new menu item
+    //  2. POST add new menu item
     // add image also
     @PostMapping("/{restaurantId}")
     public ResponseEntity<Menu> addMenuItem(
@@ -39,20 +39,13 @@ public class MenuController {
 
 
 
-//    @PostMapping("/{restaurantId}")
-//    public ResponseEntity<Menu> addMenuItem(@PathVariable Long restaurantId, @RequestBody Menu menu) {
-//        return ResponseEntity.ok(menuService.addMenuItem(restaurantId, menu));
-//    }
-
-
-
-    // ✅ Update a menu item
+    //  Update a menu item
     @PutMapping("/{menuId}")
     public ResponseEntity<Menu> updateMenuItem(@PathVariable Long menuId, @RequestBody Menu menu) {
         return ResponseEntity.ok(menuService.updateMenuItem(menuId, menu));
     }
 
-    // ✅ Delete a menu item
+    //  Delete a menu item
     @DeleteMapping("/{menuId}")
     public ResponseEntity<String> deleteMenuItem(@PathVariable Long menuId) {
         menuService.deleteMenuItem(menuId);

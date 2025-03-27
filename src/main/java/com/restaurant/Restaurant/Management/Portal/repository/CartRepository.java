@@ -12,12 +12,12 @@ import java.util.Optional;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-    // ✅ Find all cart items for a specific user
+    //  Find all cart items for a specific user
     List<Cart> findByUser(User user);
 
-    // ✅ Find all cart items for a specific restaurant
+    //  Find all cart items for a specific restaurant
     List<Cart> findByRestaurant(Restaurant restaurant);
 
-    // ✅ Check if a specific menu item is already in the user's cart
+    //  Check if a specific menu item is already in the user's cart
     Optional<Cart> findByUserAndMenuItemId(User user, Long menuItemId);
 }

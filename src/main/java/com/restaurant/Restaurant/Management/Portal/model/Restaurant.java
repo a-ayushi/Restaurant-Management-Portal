@@ -92,4 +92,8 @@ public class Restaurant {
                 ", imageUrl=" +imageUrl+
                 '}';
     }
+    public void setOwnerId(Long ownerId) {
+        this.userId = ownerId;
+}
+
 }

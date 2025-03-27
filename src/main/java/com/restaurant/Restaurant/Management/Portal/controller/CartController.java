@@ -18,7 +18,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    // ✅ Add an item to the cart
+    // Add an item to the cart
     @PostMapping("/add")
     public ResponseEntity<Map<String, String>> addToCart(@RequestBody Map<String, Object> request) {
         Long userId = Long.parseLong(request.get("userId").toString());
@@ -38,7 +38,7 @@ public class CartController {
     public ResponseEntity<List<Map<String, Object>>> getCartItems(@PathVariable Long userId) {
         List<Cart> cartItems = cartService.getCartItems(userId);
 
-        // ✅ Convert Cart objects into a structured JSON response with `imageUrl`
+        // Convert Cart objects into a structured JSON response with `imageUrl`
         List<Map<String, Object>> response = cartItems.stream().map(cart -> Map.of(
                 "id", cart.getId(),
                 "menuItemId", cart.getMenuItem().getId(),
@@ -55,12 +55,7 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<List<Cart>> getCartItems(@PathVariable Long userId) {
-//        return ResponseEntity.ok(cartService.getCartItems(userId));
-//    }
-
-    // ✅ Remove a specific item from the cart
+    // Remove a specific item from the cart
     @DeleteMapping("/remove/{cartItemId}")
     public ResponseEntity<String> removeCartItem(@PathVariable Long cartItemId) {
         cartService.removeCartItem(cartItemId);

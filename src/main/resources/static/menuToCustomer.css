@@ -1,4 +1,4 @@
-/* ✅ Navbar Styles */
+/* Navbar Styles */
 .navbar {
     width: 100%;
     display: flex;
@@ -64,7 +64,7 @@
     color: #343a40;
 }
 
-/* ✅ Adjust body to prevent content overlap */
+/*  Adjust body to prevent content overlap */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -75,24 +75,68 @@ body {
     align-items: center;
 }
 
-/* ✅ Main Container */
+
+
+/*  Main Container */
 .container {
-    width: 90%;
-    max-width: 1000px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 20px;
+    width: 40%;
+          margin: 30px auto;
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          text-align:center;
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 20px;
+#menu-image {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
 }
 
-/* ✅ Menu Grid Layout */
+/* menu items */
+
+.menu-item {
+    display: flex;
+    align-items: center;
+   gap:15px;
+   flex-wrap: wrap; /* Allows wrapping on smaller screens */
+   max-width: 100%; /* Ensures it doesn't overflow */
+   padding: 10px;
+   background: #f4f4f4;
+   border-radius: 5px;
+   margin-bottom:25px;
+
+}
+
+.menu-item img {
+    width: 160px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+/* This targets the name and buttons inside .menu-item */
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Aligns content to the left */
+    flex-grow: 1;
+    min-width: 150px; /* Prevents shrinking too much */
+}
+
+.menu-name{
+ font-size:20px;
+  font-weight: bold;
+     word-wrap: break-word; /* Prevents text overflow */
+     max-width: 100%;
+}
+
+
+/*  Menu Grid Layout */
 #menu-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -102,7 +146,7 @@ h2 {
     margin-top: 20px;
 }
 
-/* ✅ Menu Item (Card) */
+/* Menu Item (Card) */
 .menu-item {
     background: white;
     border: 1px solid #ddd;
@@ -120,7 +164,7 @@ h2 {
     transform: scale(1.05);
 }
 
-/* ✅ Menu Image */
+/* Menu Image */
 .menu-image {
     width: 100%;
     max-height: 160px;
@@ -129,7 +173,7 @@ h2 {
     margin-bottom: 10px;
 }
 
-/* ✅ Menu Content */
+/* Menu Content */
 .menu-content {
     font-size: 16px;
     font-weight: bold;
@@ -137,8 +181,8 @@ h2 {
     margin-bottom: 10px;
 }
 
-/* ✅ Add to Cart Button */
-.add-to-cart-btn {
+/*  Add to Cart Button */
+.add-to-cart-btn, .order-now-btn{
     background: #ff6b6b;
     color: white;
     font-size: 14px;
@@ -157,13 +201,13 @@ h2 {
     background: #cc5200;
     transform: scale(1.08);
 }
-
-.add-to-cart-btn:active {
-    background: #b34700;
-    transform: scale(1);
+.order-now-btn:hover{
+background:#cc5200;
+transform:scale(1.08);
 }
 
-/* ✅ Responsive Fix for Grid Layout */
+
+/* Responsive Fix for Grid Layout */
 @media (max-width: 600px) {
     #menu-list {
         grid-template-columns: 1fr;

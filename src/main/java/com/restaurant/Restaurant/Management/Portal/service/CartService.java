@@ -29,7 +29,7 @@ public class CartService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    // ✅ Add item to cart (if exists, increase quantity)
+    //  Add item to cart (if exists, increase quantity)
     public String addToCart(Long userId, Long menuItemId,String itemName,double itemPrice, Long restaurantId, int quantity) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -52,19 +52,19 @@ public class CartService {
         return "Item added to cart successfully!";
     }
 
-    // ✅ Get all cart items for a user
+    //  Get all cart items for a user
     public List<Cart> getCartItems(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return cartRepository.findByUser(user);
     }
 
-    // ✅ Remove an item from the cart
+    //  Remove an item from the cart
     public void removeCartItem(Long cartItemId) {
         cartRepository.deleteById(cartItemId);
     }
 
-    // ✅ Clear cart for a user
+    //  Clear cart for a user
     public void clearCart(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));

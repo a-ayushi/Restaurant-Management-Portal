@@ -30,13 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 menuItems.forEach(item => {
                     const div = document.createElement("div");
+                    div.classList.add("menu-item");
                     div.innerHTML = `
                     <img src="${item.imageUrl}" alt="${item.name}" class="menu-image"> <!--  Display menu image -->
                     <div class="menu-content">
                         <p>${item.name} - ₹${item.price.toFixed(2)}</p>
                     </div>
                     ${role === "CUSTOMER" ? `<button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, ${restaurantId})">Add to Cart</button>` : ""}
-
+                                            <button class="order-now-btn" onclick="window.location.href='cart.html'">Order Now</button>
                     `;
                     menuList.appendChild(div);
                 });
@@ -45,9 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error fetching menu:", error));
 });
 
+
 function addToCart(menuItemId,itemName,itemPrice,restaurantId) {
 
- console.log("Add to Cart Clicked!");  // ✅ Check if function is triggered
+ console.log("Add to Cart Clicked!");  // Check if function is triggered
     console.log(`MenuItemId: ${menuItemId}, Name: ${itemName}, Price: ${itemPrice}, RestaurantId: ${restaurantId}`);
 
 
