@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const menuList = document.getElementById("menu-list");
     const addMenuBtn = document.getElementById("add-menu-btn");
+    const menuContainer=document.getElementById("menu-container");
     const menuFormContainer = document.getElementById("menu-form-container");
     const menuForm = document.getElementById("menu-form");
     const menuSubmitBtn = menuForm.querySelector("button[type='submit']");
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error fetching restaurant:", error));
 
-    // ✅ Fetch menu items and display Update & Delete buttons
+    // Fetch menu items and display Update & Delete buttons
     function fetchMenu() {
         fetch(`http://localhost:8080/menus/${restaurantId}`)
             .then(response => response.json())
@@ -43,10 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         li.innerHTML = `
                         <img src="${item.imageUrl}" alt="${item.name}" class="menu-image">
-                            <span><strong>${item.name}</strong> - ₹${item.price.toFixed(2)}</span>
+                        <div class="menu-content">
+                            <p class="menu-name">${item.name}- ₹${item.price.toFixed(2)}</p>
                             <div class="menu-buttons">
                                 <button class="update-btn" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Update</button>
                                 <button class="delete-btn" data-id="${item.id}">Delete</button>
+                            </div>
                             </div>
                         `;
 
@@ -72,16 +75,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchMenu();
 
-    // ✅ When "Add Menu" button is clicked
+    // When "Add Menu" button is clicked
     addMenuBtn.addEventListener("click", () => {
         menuFormContainer.style.display = "block";
+        menuContainer.style.display="none";
         menuForm.reset();
         isUpdating = false;  // Set to "Add" mode
         updatingMenuId = null;
         menuSubmitBtn.textContent = "Add Menu";  // Change button text
     });
 
-    // ✅ Handle form submission (Add or Update based on mode)
+    // Handle form submission (Add or Update based on mode)
     menuForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -98,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if (isUpdating) {
-            // ✅ Update existing menu item
+            //  Update existing menu item
             fetch(`http://localhost:8080/menus/${updatingMenuId}`, {
                 method: "PUT",
                 body:formData
@@ -113,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Error updating menu:", error));
         } else {
-            // ✅ Add a new menu item
+            //  Add a new menu item
             fetch(`http://localhost:8080/menus/${restaurantId}`, {
                 method: "POST",
                 body:formData
@@ -123,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(() => {
                 menuFormContainer.style.display = "none";
+                 menuContainer.style.display="none";
                 menuForm.reset();
                 fetchMenu();
             })
@@ -130,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ✅ Show update form and switch to update mode
+    //  Show update form and switch to update mode
     function showUpdateForm(menuId, name, price) {
         menuFormContainer.style.display = "block";
         document.getElementById("menu-name").value = name;
