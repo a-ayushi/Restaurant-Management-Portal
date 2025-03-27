@@ -7,6 +7,16 @@ public class OrderItemDTO {
     private double price;
 
 
+    //  Default Constructor (Required for serialization)
+    public OrderItemDTO() {}
+
+    //  Parameterized Constructor (Optional but useful)
+    public OrderItemDTO(Long menuItemId, int quantity, double price) {
+        this.menuItemId = menuItemId;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public Long getMenuItemId() {
         return menuItemId;
     }

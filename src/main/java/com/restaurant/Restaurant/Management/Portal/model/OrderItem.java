@@ -17,7 +17,7 @@ public class OrderItem {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "menu_item_id", nullable = false) // ✅ Links to menu item
+    @JoinColumn(name = "menu_item_id", nullable = false) //  Links to menu item
     private Menu menuItem;
 
 //    private String itemName;
@@ -34,7 +34,7 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    // ✅ Getters & Setters
+    // Getters & Setters
     public Long getId() { return id; }
     public Order getOrder() { return order; }
     public Menu getMenuItem() { return menuItem; }

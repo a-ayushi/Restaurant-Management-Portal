@@ -10,6 +10,16 @@ public class OrderRequestDTO {
     private List<OrderItemDTO> orderItems;
 
 
+    // Default Constructor (Good practice for serialization)
+    public OrderRequestDTO() {}
+
+    //  Parameterized Constructor
+    public OrderRequestDTO(Long userId, Long restaurantId, List<OrderItemDTO> orderItems) {
+        this.userId = userId;
+        this.restaurantId = restaurantId;
+        this.orderItems = orderItems;
+    }
+
     public Long getUserId() {
         return userId;
     }

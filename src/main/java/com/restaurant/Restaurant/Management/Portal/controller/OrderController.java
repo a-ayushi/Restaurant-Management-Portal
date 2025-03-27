@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
 @RequestMapping("/orders")
 
@@ -18,15 +19,15 @@ public class OrderController {
 
     // Place an order
     @PostMapping
-    public Order placeOrder(@RequestBody Order order) {
-
-        return orderService.placeOrder(order);
+    public ResponseEntity<Order> placeOrder(@RequestBody OrderRequestDTO orderRequest) {
+        Order order = orderService.placeOrder(orderRequest);
+        return ResponseEntity.ok(order);
     }
 
     // Get all orders for a specific user
     @GetMapping("/user/{userId}")
-    public List<Order> getOrdersByUser(@PathVariable Long userId) {
-        return orderService.getOrdersByUserId(userId);
+    public ResponseEntity<List<Order>> getOrdersByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
     }
 
     // Get all orders for a specific restaurant
