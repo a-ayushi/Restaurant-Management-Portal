@@ -49,13 +49,14 @@ function fetchRestaurantOrders(ownerId) {
         return;
     }
 
-    orders.forEach(order=>{
+    orders.forEach(order => {
         const div = document.createElement("div");
         div.classList.add("order-item");
 
 //            <h3>Order ${order.id}</h3>
 
         div.innerHTML = `
+            <h3>Order ${order.id}</h3>
             <p><strong>Total Price:</strong> ₹${order.totalPrice}</p>
             <p><strong>Status:</strong> ${order.status}</p>
             ${order.status === "PENDING" ? `<button onclick="cancelOrder(${order.id})">Cancel Order</button>` : ""}
