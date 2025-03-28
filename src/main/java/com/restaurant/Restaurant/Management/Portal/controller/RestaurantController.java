@@ -47,14 +47,6 @@ public class RestaurantController {
     }
 
 
-
-
-//    @PostMapping
-//    public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant) {
-//        Restaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
-//        return ResponseEntity.ok(createdRestaurant);
-//    }
-
     //  2. GET all restaurants
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
