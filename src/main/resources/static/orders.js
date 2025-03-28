@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //  Fetch Orders for customers
-function fetchOrders(userId) {
+ function fetchOrders(userId) {
     fetch(`http://localhost:8080/orders/user/${userId}`)
         .then(response => response.json())
         .then(displayOrders)
@@ -38,8 +38,9 @@ function fetchRestaurantOrders(ownerId) {
         .catch(error => console.error("Error fetching restaurant orders:", error));
 }
 
+
 // Display Orders for Customers
-function displayOrders(orders) {
+ function displayOrders(orders) {
     const ordersList = document.getElementById("orders-list");
     ordersList.innerHTML = "";
 
@@ -48,13 +49,13 @@ function displayOrders(orders) {
         return;
     }
 
-    orders.forEach(order => {
+    orders.forEach(order=>{
         const div = document.createElement("div");
         div.classList.add("order-item");
 
+//            <h3>Order ${order.id}</h3>
+
         div.innerHTML = `
-            <h3>Order #${order.id}</h3>
-            <p><strong>Restaurant:</strong> ${order.restaurantId}</p>
             <p><strong>Total Price:</strong> ₹${order.totalPrice}</p>
             <p><strong>Status:</strong> ${order.status}</p>
             ${order.status === "PENDING" ? `<button onclick="cancelOrder(${order.id})">Cancel Order</button>` : ""}
@@ -78,8 +79,9 @@ function displayOwnerOrders(orders) {
         const div = document.createElement("div");
         div.classList.add("order-item");
 
+//<h3>Order ${order.id}</h3>
+
         div.innerHTML = `
-            <h3>Order #${order.id}</h3>
             <p><strong>Customer:</strong> ${order.userId}</p>
             <p><strong>Total Price:</strong> ₹${order.totalPrice}</p>
             <p><strong>Status:</strong> ${order.status}</p>
@@ -112,39 +114,6 @@ function updateOrderStatus(orderId) {
     })
     .catch(error => console.error("Error updating order status:", error));
 }
-
-
-
-
-//function fetchOrders(userId) {
-//    fetch(`http://localhost:8080/orders/user/${userId}`)
-//        .then(response => response.json())
-//        .then(orders => {
-//            const ordersList = document.getElementById("orders-list");
-//            ordersList.innerHTML = "";
-//
-//            if (orders.length === 0) {
-//                ordersList.innerHTML = "<p>You have no orders.</p>";
-//                return;
-//            }
-//
-//            orders.forEach(order => {
-//                const div = document.createElement("div");
-//                div.classList.add("order-item");
-//
-//                div.innerHTML = `
-//                    <h3>Order #${order.id}</h3>
-//                    <p><strong>Restaurant:</strong> ${order.restaurantId}</p>
-//                    <p><strong>Total Price:</strong> ₹${order.totalPrice}</p>
-//                    <p><strong>Status:</strong> ${order.status}</p>
-//                    ${order.status === "PENDING" ? `<button onclick="cancelOrder(${order.id})">Cancel Order</button>` : ""}
-//                `;
-//
-//                ordersList.appendChild(div);
-//            });
-//        })
-//        .catch(error => console.error("Error fetching orders:", error));
-//}
 
 // Cancel Order (Only if Pending)
 function cancelOrder(orderId) {

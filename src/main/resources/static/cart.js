@@ -21,8 +21,9 @@ function fetchCartItems(userId) {
 
             cartContainer.innerHTML = ""; // Clear previous items
 
-            if (cartItems.length === 0) {
+            if (cartItems.length === 0||!cartItems) {
                 cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+                totalPriceElement.innerText = "0";  // Ensure total price updates to ₹0
                 return;
             }
 
@@ -36,7 +37,7 @@ function fetchCartItems(userId) {
                                   <img src="${item.imageUrl}" alt="${item.itemName}" class="cart-item-image">  <!--  Display food image -->
                                   <div class="cart-item-details">
                                       <p class="menu-name"><strong>${item.itemName}</strong></p>
-                                      <p>Price: ₹${item.itemPrice} | Quantity: ${item.quantity}</p>
+                                      <p>Price: ₹${item.itemPrice}| Quantity: ${item.quantity}</p>
                                       <p>Restaurant: ${item.restaurant.name}</p>
 
                                   <div class="cart-btn">
@@ -49,7 +50,7 @@ function fetchCartItems(userId) {
                 totalPrice += item.itemPrice * item.quantity; //  Calculate total price
             });
 
-            totalPriceElement.textContent = totalPrice.toFixed(2); //  Update total price
+            totalPriceElement.innerText = `${totalPrice}`; // Update UI ; //  Update total price
         })
         .catch(error => console.error("Error fetching cart items:", error));
 }
@@ -101,6 +102,7 @@ function removeFromCart(cartItemId) {
             alert(message);
             fetchCartItems(localStorage.getItem("userId")); //  Refresh cart after removal
         })
+
         .catch(error => console.error("Error removing item:", error));
 }
 

@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   fetchRestaurantByUserId();
 });
+
 //logout implementation
 document.getElementById("logout-btn").addEventListener("click", function () {
   fetch("http://localhost:8080/auth/logout", {

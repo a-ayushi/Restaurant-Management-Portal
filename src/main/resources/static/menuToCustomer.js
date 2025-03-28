@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p>${item.name} - ₹${item.price.toFixed(2)}</p>
                     </div>
                     ${role === "CUSTOMER" ? `<button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, ${restaurantId})">Add to Cart</button>` : ""}
-                                            <button class="order-now-btn" onclick="window.location.href='cart.html'">Order Now</button>
+                                            <button class="order-now-btn" onclick="checkIfPresent(${item.id}, '${item.name}', ${item.price}, ${restaurantId})">Order Now</button>
                     `;
                     menuList.appendChild(div);
                 });
@@ -49,8 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function addToCart(menuItemId,itemName,itemPrice,restaurantId) {
 
- console.log("Add to Cart Clicked!");  // Check if function is triggered
-    console.log(`MenuItemId: ${menuItemId}, Name: ${itemName}, Price: ${itemPrice}, RestaurantId: ${restaurantId}`);
+// console.log("Add to Cart Clicked!");  // Check if function is triggered
+//    console.log(`MenuItemId: ${menuItemId}, Name: ${itemName}, Price: ${itemPrice}, RestaurantId: ${restaurantId}`);
 
 
     const userId = localStorage.getItem("userId");
@@ -78,3 +78,23 @@ function addToCart(menuItemId,itemName,itemPrice,restaurantId) {
         })
         .catch(error => console.error("Error adding to cart:", error));
 }
+
+
+//check if the item is already present in cart
+function checkIfPresent(menuItemId, itemName, itemPrice, restaurantId) {
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+    fetch(`http://localhost:8080/check/ifpresent?userId=${userId}&menuItemId=${menuItemId}`)
+        .then(response => response.json())
+        .then(isPresent => {
+            if (isPresent) {
+                window.location.href = 'cart.html'; // Redirect if the item is already in the cart
+            } else {
+                addToCart(menuItemId, itemName, itemPrice, restaurantId);
+                window.location.href = 'cart.html'; // Redirect after adding to cart
+
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
