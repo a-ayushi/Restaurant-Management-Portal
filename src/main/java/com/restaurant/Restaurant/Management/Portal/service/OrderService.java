@@ -116,7 +116,7 @@ public class OrderService {
             throw new RuntimeException("You can only manage orders for your restaurant.");
         }
 
-        if (order.getStatus() == OrderStatus.COMPLETED || order.getStatus() == OrderStatus.CANCELLED) {
+        if (order.getStatus() == OrderStatus.DELIVERED || order.getStatus() == OrderStatus.CANCELLED) {
             throw new RuntimeException("Cannot update a completed or cancelled order.");
         }
 

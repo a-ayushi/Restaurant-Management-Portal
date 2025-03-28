@@ -62,10 +62,10 @@ public class CartController {
         return ResponseEntity.ok("Item removed from cart.");
     }
 
-    // Clear the entire cart for a user
-    @DeleteMapping("/clear/{userId}")
-    public ResponseEntity<String> clearCart(@PathVariable Long userId) {
-        cartService.clearCart(userId);
-        return ResponseEntity.ok("Cart cleared successfully.");
-    }
+//    // Clear the entire cart for a user
+//    @DeleteMapping("/clear/{userId}")
+//    public ResponseEntity<String> clearCart(@PathVariable Long userId) {
+//        cartService.clearCart(userId);
+//        return ResponseEntity.ok("Cart cleared successfully.");
+//    }
 }
