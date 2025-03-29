@@ -23,19 +23,15 @@ import com.restaurant.Restaurant.Management.Portal.model.Role;
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:63342")
 public class AuthController {
-    @Autowired // provides the instance of userService without manually creating it using new
+    @Autowired // provides the instance of userService without manually creating it, using new
     private UserService userService;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+
+//1. API for user Register
 @PostMapping("/register")
 public ResponseEntity<String> registerUser(@RequestBody User user) {
-    if (user.getRole() == null) {
-        return ResponseEntity.badRequest().body("Error: Role must be CUSTOMER or OWNER");
-    }
-    
+
     userService.registerUser(user);
-    
+
     if (user.getRole().equals(Role.CUSTOMER)) {
         return ResponseEntity.ok("Registered as CUSTOMER. Redirecting to login...");
     } else {
@@ -43,11 +39,13 @@ public ResponseEntity<String> registerUser(@RequestBody User user) {
     }
 }
 
+
+    //2. API for user login
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {
         Map<String, Object> response = new HashMap<>();
         Optional<User> existingUser = userService.findByEmail(user.getEmail());
-if (existingUser.isPresent()) {
+    if (existingUser.isPresent()) {
     User userFromDb = existingUser.get();
     if (userFromDb.getPassword().equals(user.getPassword())) {
             response.put("message", "Login successful!");
@@ -61,6 +59,9 @@ if (existingUser.isPresent()) {
     }
     return response;
 }
+
+
+    //3. Api for logout
     @PostMapping("/logout")
     public String logout() {
         return "Logout successful!";
