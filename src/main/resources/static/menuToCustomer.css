@@ -80,6 +80,20 @@ body {
     align-items: center;
 }
 
+/*msg box styling */
+.message-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    display: none;
+    z-index: 1000;
+}
+.success { background-color: green; }
+.error { background-color: red; }
 
 
 /*  Main Container */

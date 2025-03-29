@@ -20,7 +20,8 @@ document.getElementById("register-form").addEventListener("submit", function (ev
     const role = document.getElementById("register-role").value;
 
     if (!role) {
-        alert("Please select a role!");
+//        alert("Please select a role!");
+          showMessage("please select a role!");
         return;
     }
 
@@ -41,15 +42,35 @@ document.getElementById("register-form").addEventListener("submit", function (ev
         console.log("Response Status:", status);
         // Check if the status code indicates success (200-299)
         if (status >= 200 && status < 300) {
-            alert("Registration Successful! Redirecting to login...");
+//            alert("Registration Successful! Redirecting to login...");
+            showMessage("Registration successful!", "success");
             window.location.href = "login.html";
         } else {
             let errorMsg = type === "json" ? (data.error || "Unknown error") : data;
-            alert("Registration failed: " + errorMsg);
+//            alert("Registration failed: " + errorMsg);
+              showMessage("Registration failed!"+errorMsg , "error");
+
         }
     })
     .catch(error => {
         console.error("Fetch Error:", error);
-        alert("Registration failed due to a network error.");
+//        alert("Registration failed due to a network error.");
+              showMessage("Registration failed!"+errorMsg , "error");
     });
 });
+
+//show msg logic
+function showMessage(message, type = "") {
+    const messageBox = document.getElementById("message-box");
+    if (!messageBox) return;
+
+    messageBox.textContent = message;
+    messageBox.className = `message-box ${type}`.trim(); // Add class only if type is provided
+    messageBox.style.display = "block";
+
+    setTimeout(() => {
+        messageBox.style.display = "none";
+    }, 5000);
+}
+
+

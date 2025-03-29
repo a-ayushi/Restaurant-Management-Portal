@@ -57,6 +57,23 @@
     background-color: white;
     color: #343a40;
 }
+
+/*msg box styling */
+.message-box {
+align-items:center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    display: none;
+    z-index: 1000;
+}
+.success { background-color: green; }
+.error { background-color: red; }
+
 /* ---- Search Bar Styles ---- */
 .search-box {
     display: flex;

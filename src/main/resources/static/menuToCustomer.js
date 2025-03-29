@@ -49,10 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function addToCart(menuItemId,itemName,itemPrice,restaurantId) {
 
-// console.log("Add to Cart Clicked!");  // Check if function is triggered
-//    console.log(`MenuItemId: ${menuItemId}, Name: ${itemName}, Price: ${itemPrice}, RestaurantId: ${restaurantId}`);
-
-
     const userId = localStorage.getItem("userId");
 
     if (!userId) {
@@ -72,6 +68,7 @@ function addToCart(menuItemId,itemName,itemPrice,restaurantId) {
 
             if (data) {
                 alert("Item added to cart successfully!");
+//                showMessage("Item added to cart!", "success"); // Green message
             } else {
                 alert("Failed to add item to cart.");
             }
