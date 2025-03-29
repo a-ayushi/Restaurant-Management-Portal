@@ -53,8 +53,6 @@ function fetchRestaurantOrders(ownerId) {
         const div = document.createElement("div");
         div.classList.add("order-item");
 
-//            <h3>Order ${order.id}</h3>
-
         div.innerHTML = `
             <h3>Order ${order.id}</h3>
             <p><strong>Total Price:</strong> ₹${order.totalPrice}</p>

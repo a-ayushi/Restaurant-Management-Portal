@@ -57,6 +57,12 @@ public class OrderService {
         return order;
     }
 
+
+    public Optional<Order> getOrderById(Long orderId) {
+        return orderRepository.findById(orderId);
+    }
+
+
     // Get Order Status (Only the user who placed it
     public OrderStatus getOrderStatus(Long orderId, Long userId) {
         Order order = orderRepository.findById(orderId)
@@ -107,12 +113,13 @@ public class OrderService {
 
     // Update Order Status (Handled by Restaurant Owner)
 
-    public Order updateOrderStatus(Long orderId, OrderStatus status, Long restaurantOwnerId) {
+    // Update Order Status (Handled by Restaurant Owner)
+    public Order updateOrderStatus(Long orderId, OrderStatus status, Long restaurantId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
 
-        // Ensure the restaurant owner manages this restaurant's orders
-        if (!order.getRestaurantId().equals(restaurantOwnerId)) {
+        // Ensure the order belongs to the correct restaurant
+        if (!order.getRestaurantId().equals(restaurantId)) {
             throw new RuntimeException("You can only manage orders for your restaurant.");
         }
 
@@ -129,10 +136,4 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-
-    // Get Order by ID
-    public Order getOrderById(Long orderId) {
-        return orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found with ID: " + orderId));
-    }
 }

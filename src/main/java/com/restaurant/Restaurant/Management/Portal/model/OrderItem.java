@@ -1,52 +1,82 @@
-//one order can have multiple menu items
-//many to one relationship between order and menu
-
 package com.restaurant.Restaurant.Management.Portal.model;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "order_items")
-public class OrderItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+import java.math.BigDecimal;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false) //  Each item belongs to one order
-    private Order order;
+    @Entity
+    @Table(name = "order_items")
+    public class OrderItem {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "menu_item_id", nullable = false) //  Links to menu item
-    private Menu menuItem;
+        @ManyToOne
+        @JoinColumn(name = "order_id", nullable = false)
+        private Order order;
 
-//    private String itemName;
-    private double Price;
-    private int quantity;
+        @Column(nullable = false)
+        private Long menuId;
 
-    public OrderItem() {}
+        @Column(nullable = false)
+        private int quantity;
 
-    public OrderItem(Order order, Menu menuItem, int quantity,double price) {
-        this.order = order;
-        this.menuItem = menuItem;
-//        this.itemName = menuItem.getName();
-        this.Price = price;
-        this.quantity = quantity;
+        @Column(nullable = false)
+        private long price;
+
+        public OrderItem(){}
+
+        public OrderItem(Long id, Long menuId, Order order, long price, int quantity) {
+            this.id = id;
+            this.menuId = menuId;
+            this.order = order;
+            this.price = price;
+            this.quantity = quantity;
+        }
+
+        public OrderItem(Order order, Menu menuItem, int quantity, double price) {
+        }
+
+        // Getters and Setters
+
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public Long getMenuId() {
+            return menuId;
+        }
+
+        public void setMenuId(Long menuId) {
+            this.menuId = menuId;
+        }
+
+        public Order getOrder() {
+            return order;
+        }
+
+        public void setOrder(Order order) {
+            this.order = order;
+        }
+
+        public long getPrice() {
+            return price;
+        }
+
+        public void setPrice(long price) {
+            this.price = price;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
-
-    // Getters & Setters
-    public Long getId() { return id; }
-    public Order getOrder() { return order; }
-    public Menu getMenuItem() { return menuItem; }
-//    public String getItemName() { return itemName; }
-    public double getPrice() { return Price; }
-    public int getQuantity() { return quantity; }
-
-    public void setId(Long id) { this.id = id; }
-    public void setOrder(Order order) { this.order = order; }
-    public void setMenuItem(Menu menuItem) { this.menuItem = menuItem; }
-//    public void setItemName(String itemName) { this.itemName = itemName; }
-    public void setPrice(double price) { this.Price = price; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
-
-}
