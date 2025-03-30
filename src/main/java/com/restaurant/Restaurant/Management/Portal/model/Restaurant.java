@@ -2,6 +2,9 @@ package com.restaurant.Restaurant.Management.Portal.model;
 
 import jakarta.persistence.*;
 
+// in the restaurants table all the restaurants will be stored
+//created by owners
+
 @Entity
 @Table(name = "restaurants")
 public class Restaurant {
@@ -81,19 +84,21 @@ public class Restaurant {
         this.imageUrl = imageUrl;
     }
 
-    // Optional: Override toString() for better logging/debugging
+    //represents restaurant object as a string
+    // Override toString() for better logging/debugging
+
     @Override
     public String toString() {
         return "Restaurant{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", userId=" + userId +'\''+
+                ", userId='" + userId +'\''+
                 ", imageUrl=" +imageUrl+
                 '}';
     }
     public void setOwnerId(Long ownerId) {
         this.userId = ownerId;
-}
+    }
 
 }
