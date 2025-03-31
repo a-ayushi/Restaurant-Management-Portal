@@ -57,6 +57,23 @@
     background-color: white;
     color: #343a40;
 }
+
+/*msg box styling */
+.message-box {
+align-items:center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    display: none;
+    z-index: 1000;
+}
+.success { background-color: green; }
+.error { background-color: red; }
+
 /* ---- Search Bar Styles ---- */
 .search-box {
     display: flex;
@@ -169,7 +186,7 @@
     gap: 20px;
     justify-content: center;
      margin-top: 20px;
-        padding: 0;
+     padding: 0;
 }
 
 .restaurant-card {
@@ -252,120 +269,7 @@
     background-color: #ff4757;
 }
 
-/*-------Dashboard--------*/
-.dashboard-container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
-}
 
-/* Buttons */
-button {
-    padding: 10px;
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #ff4757;
-}
-
-/* Add Restaurant Button */
-#add-restaurant-btn {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Restaurant Form Container (Initially Hidden) */
-#restaurant-form-container {
-    display: none;
-    background: white;
-    padding: 20px;
-    max-width: 400px;
-    margin: 20px auto;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Form Inputs */
-#restaurant-form input {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Submit Button */
-#restaurant-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-#restaurant-form button:hover {
-    background-color: #0056b3;
-}
-
-/* Restaurant List */
-#restaurant-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-}
-
-/* Restaurant Cards */
-.restaurant-card {
-    width: 300px;
-    padding: 15px;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    text-align: center;
-     transition: transform 0.3s ease-in-out;
-        border-left: 5px solid #ff6b6b;
-}
-.restaurant-card:hover {
-    transform: translateY(-5px);
-}
-
-.restaurant-card h3 {
-    margin: 10px 0;
-      font-size: 20px;
-        color: #333;
-}
-
-/* Restaurant Address */
-.restaurant-card p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.restaurant-card button {
-    background-color: #343a40;
-        padding: 8px 12px;
-        font-size: 14px;
-}
-
-.restaurant-card button:hover {
-    background-color: #222;
-}
 /*----MENU -------*/
 .menu-container {
     width: 80%;
@@ -408,54 +312,41 @@ button:hover {
     background-color: #ff4757;
 }
 /*------------Cart Styling--------*/
-
-.cart-container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    text-align: center;
-}
-
-#cart-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
 .cart-item {
-    width: 300px;
-    padding: 15px;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: #fff;
     border-radius: 8px;
-    text-align: center;
 }
 
-.cart-item h3 {
-    margin: 10px 0;
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
 }
 
 .cart-item button {
-    background-color: #ff6b6b;
+    background: #dc3545;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .cart-item button:hover {
-    background-color: #ff4757;
+    background: #b02a37;
 }
 
-.cart-item .quantity {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 /*---------order page styling-----------*/
 .orders-container {
@@ -495,3 +386,59 @@ button:hover {
     font-weight: bold;
     color: #ff6b6b;
 }
+
+/*--restaurants at home page --*/
+.restaurant-card {
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.restaurant-card:hover {
+    transform: scale(1.05);
+}
+
+.restaurant-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+/*////////////////////////////////////////*/
+  /* Toaster message styles */
+  .toast {
+    min-width: 200px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    color: #fff;
+    background-color: #333;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .toast.show {
+    opacity: 1;
+  }
+
+  /* Different styles for error and success messages */
+  .toast.error {
+    background-color: #e74c3c;
+  }
+
+  .toast.success {
+    background-color: #2ecc71;
+  }

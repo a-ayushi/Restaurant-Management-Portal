@@ -1,0 +1,215 @@
+
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Keeps navbar on top */
+     box-sizing: border-box;/* Prevents overflow */
+}
+
+
+.navbar .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+     flex-wrap: nowrap; /* Prevents buttons from shifting */
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover {
+    color: #ff6b6b;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+      margin-left: auto; /* Push buttons to right */
+        flex-wrap: nowrap; /* Prevents breaking */
+}
+
+.auth-buttons button {
+    padding: 8px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.auth-buttons button:hover {
+    background-color: white;
+    color: #343a40;
+}
+
+
+
+
+/*  Adjust body to prevent content overlap */
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding-top: 80px; /* Prevents content from hiding under navbar*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* Container */
+.dashboard-container {
+    width: 60%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align:center;
+}
+
+/* Add Restaurant Button */
+#add-restaurant-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#add-restaurant-btn:hover {
+    background-color: #e65c00;
+}
+
+
+/* Restaurant Form */
+#restaurant-form-container {
+    display: none;
+    margin-top: 20px;
+}
+
+#restaurant-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#restaurant-form label {
+    font-weight: bold;
+}
+
+#restaurant-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#restaurant-form button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#restaurant-form button:hover {
+    background-color: #218838;
+}
+
+/* Restaurant List */
+#restaurant-list {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.restaurant-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    cursor: pointer;
+    text-align: center;
+     overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height:auto;
+        margin:20px;
+
+}
+
+.restaurant-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Restaurant Image */
+.restaurant-image {
+    width: 100%;
+    height: 200px; /* Adjust as needed */
+    object-fit: contain; /* Ensures the full image is visible */
+    border-radius: 10px; /* Softer edges */
+    background-color: #f8f9fa; /* Optional: Adds a background to fill empty spaces */
+    margin-bottom: 10px;
+    padding: 5px; /* Adds spacing around the image */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.restaurant-card:hover .restaurant-image {
+    transform: scale(1.02); /* Slight zoom effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .restaurant-image {
+        height: 150px; /* Adjust for smaller screens */
+    }
+}
+/* Responsive Design */
+@media (max-width: 600px) {
+    .restaurant-card {
+        width: 100%;
+    }
+}
+
+

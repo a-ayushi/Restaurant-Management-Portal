@@ -4,29 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Management Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="message.css">
+
 </head>
 <body>
 <nav class="navbar">
-    <a href="index.html" class="logo">FoodieHub</a>
+    <a href="index.html" class="logo">Foodie</a>
     <ul>
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><a href="ownerOrders.html">Orders</a></li>
+
+        <li><a href="#" id="logout-btn">Logout</a></li>
     </ul>
 </nav>
 
 <div class="dashboard-container">
-    <h2>Your Restaurants</h2>
+    <h2>Your Restaurant</h2>
     <button id="add-restaurant-btn">Add Restaurant</button>
 
     <!-- Restaurant Form (Initially Hidden) -->
     <div id="restaurant-form-container" style="display: none;">
         <h3>Add a New Restaurant</h3>
         <form id="restaurant-form">
-            <input type="text" id="restaurant-name" placeholder="Restaurant Name" required>
-            <input type="text" id="restaurant-address" placeholder="Restaurant Address" required>
-            <button type="submit">Create</button>
+<!--            form will add images also-->
+            <label for="restaurant-name">Restaurant Name:</label>
+            <input type="text" id="restaurant-name" required>
+
+            <label for="restaurant-address">Address:</label>
+            <input type="text" id="restaurant-address" required>
+
+            <label for="restaurant-image">Upload Image:</label>
+            <input type="file" id="restaurant-image" accept="image/*" required>
+
+            <button type="submit">Create Restaurant</button>
         </form>
     </div>
 
@@ -35,6 +46,7 @@
 </div>
 
 <script src="script.js"></script>
+<script src="message.js"></script>
 <script src="dashboard.js"></script>
 </body>
 </html>

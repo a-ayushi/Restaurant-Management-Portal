@@ -10,18 +10,18 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
+   // used when a new user registers
+    //used in user registration APIs
     public User registerUser(User user) {
         // Check if user already exists
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("Error: Email is already in use!");
         }
-//        user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
-        return userRepository.save(user);
+        return userRepository.save(user);  // saves the new user in DB
     }
 
+
+    //used during the login to check if email belong to registered user
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }

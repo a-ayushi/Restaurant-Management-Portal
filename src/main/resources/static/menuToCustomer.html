@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="menuToCustomer.css">
+    <link rel="stylesheet" href="message.css">
+    <script defer src="menuToCustomer.js"></script>
+    <script defer src="message.js"></script>
+
+</head>
+<body>
+
+<div id="message-box" class="message-box"></div>
+
+<!--navbar-->
+<nav class="navbar">
+    <a href="index.html" class="logo">Foodie</a>
+    <ul>
+        <li><a href="orders.html">Orders</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h2 id="restaurant-name">Restaurant Menu</h2>
+    <div id="menu-list"></div>
+</div>
+</body>
+</html>

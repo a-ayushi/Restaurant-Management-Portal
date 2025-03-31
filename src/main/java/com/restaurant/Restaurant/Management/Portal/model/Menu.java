@@ -2,6 +2,9 @@ package com.restaurant.Restaurant.Management.Portal.model;
 import jakarta.persistence.*;
 
 
+// menu table contains the details of menu items
+// added by the restaurant owners
+
 @Entity
 @Table(name = "menu")
 public class Menu {
@@ -13,17 +16,24 @@ public class Menu {
     private String name;
     private double price;
 
+    // Links menu item to a restaurant
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    // Constructors
+    // Stores menu item image URL
+    private String imageUrl;
+
+
+    // default constructor
     public Menu() {}
 
-    public Menu(String name, double price, Restaurant restaurant) {
+    //parameterized constructor
+    public Menu(String name, double price, Restaurant restaurant,String imageUrl) {
         this.name = name;
         this.price = price;
         this.restaurant = restaurant;
+        this.imageUrl=imageUrl;
     }
 
     // Getters and Setters
@@ -38,4 +48,8 @@ public class Menu {
 
     public Restaurant getRestaurant() { return restaurant; }
     public void setRestaurant(Restaurant restaurant) { this.restaurant = restaurant; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
+

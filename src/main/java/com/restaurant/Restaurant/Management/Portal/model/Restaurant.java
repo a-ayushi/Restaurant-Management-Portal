@@ -2,6 +2,9 @@ package com.restaurant.Restaurant.Management.Portal.model;
 
 import jakarta.persistence.*;
 
+// in the restaurants table all the restaurants will be stored
+//created by owners
+
 @Entity
 @Table(name = "restaurants")
 public class Restaurant {
@@ -16,13 +19,28 @@ public class Restaurant {
     @Column(nullable = false)
     private String address;
 
+    // This field stores the ID of the user associated with this restaurant.
+    private Long userId;
+
+    //store image url
+    private String imageUrl;
+
     // Default constructor
     public Restaurant() {}
 
-    // Parameterized constructor
-    public Restaurant(String name, String address) {
+    // Parameterized constructor (without userId)
+    public Restaurant(String name, String address,String imageUrl) {
         this.name = name;
         this.address = address;
+        this.imageUrl=imageUrl;
+    }
+    
+    // Parameterized constructor (with userId)
+    public Restaurant(String name, String address, Long userId,String imageUrl) {
+        this.name = name;
+        this.address = address;
+        this.userId = userId;
+        this.imageUrl=imageUrl;
     }
 
     // Getters and Setters
@@ -49,4 +67,38 @@ public class Restaurant {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    //represents restaurant object as a string
+    // Override toString() for better logging/debugging
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", userId='" + userId +'\''+
+                ", imageUrl=" +imageUrl+
+                '}';
+    }
+    public void setOwnerId(Long ownerId) {
+        this.userId = ownerId;
+    }
+
 }

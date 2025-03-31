@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class RestaurantService {
 
@@ -17,16 +18,19 @@ public class RestaurantService {
 
     // Create a new restaurant
     public Restaurant createRestaurant(Restaurant restaurant) {
+        //calls restaurantRepository to save the restaurant in DB
         return restaurantRepository.save(restaurant);
     }
 
-    // Fetch all restaurants
+    // Fetch all restaurants stored in DB
     public List<Restaurant> getAllRestaurants() {
+
+        //returns a list of all restaurants
         return restaurantRepository.findAll();
     }
 
-    // Fetch a restaurant by ID
-    public Optional<Restaurant> getRestaurantById(Long id) {
-        return restaurantRepository.findById(id);
+    // Fetch a restaurant by userId(ownerId) using the repository method
+    public Optional<Restaurant> getRestaurantByUserId(Long userId) {
+        return restaurantRepository.findByUserId(userId);
     }
 }
