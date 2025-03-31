@@ -1,16 +1,16 @@
 // it will receive order details from frontend
 
-
 package com.restaurant.Restaurant.Management.Portal.dto;
 import java.util.List;
 
+// groups all order items together
 public class OrderRequestDTO {
     private Long userId;
     private Long restaurantId;
-    private List<OrderItemDTO> orderItems;
+    private List<OrderItemDTO> orderItems;  //list of items in order
 
 
-    // Default Constructor (Good practice for serialization)
+    // Default Constructor
     public OrderRequestDTO() {}
 
     //  Parameterized Constructor

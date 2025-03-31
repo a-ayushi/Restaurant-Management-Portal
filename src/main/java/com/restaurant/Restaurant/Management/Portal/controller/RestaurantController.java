@@ -25,23 +25,28 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
-    //  1. CREATE a restaurant (No authentication required)
+    //  1. CREATE a restaurant
     @PostMapping( consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Restaurant> createRestaurant(
-            @RequestParam("name") String name,
+    public ResponseEntity<Restaurant> createRestaurant(  // send back a restaurant object
+            @RequestParam("name") String name,  // extract values from form data
             @RequestParam("address") String address,
             @RequestParam("ownerId") Long ownerId,
             @RequestParam("image") MultipartFile imageFile
     ) {
         // Save image and create restaurant object
-        String imageUrl = saveImage(imageFile); // implement this
+        //calls the saveImage method to store image and get its path
+        String imageUrl = saveImage(imageFile);
 
-        Restaurant restaurant = new Restaurant();
+        Restaurant restaurant = new Restaurant(); // creating instance of Restaurant class
+
+        //sets the properties of restaurant object
+        //groups together all details to save in db
         restaurant.setName(name);
         restaurant.setAddress(address);
         restaurant.setOwnerId(ownerId);
         restaurant.setImageUrl(imageUrl);
 
+        // stores saved restaurant with generated id
         Restaurant saved = restaurantService.createRestaurant(restaurant);
         return ResponseEntity.ok(saved);
     }
@@ -50,12 +55,15 @@ public class RestaurantController {
     //  2. GET all restaurants
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+        //calls service layer method to get the list of  restaurants from db
         return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
+
   
-  //  3. GET a restaurant by User ID
-  @GetMapping("/user/{userId}")
-  public ResponseEntity<?> getRestaurantByUserId(@PathVariable Long userId) {
+    // 3. GET a restaurant by User ID
+     @GetMapping("/user/{userId}")
+     public ResponseEntity<?> getRestaurantByUserId(@PathVariable Long userId) {
+        // calls getRestaurantByUserId method to check if restaurant for given userId is present
       Optional<Restaurant> restaurant = restaurantService.getRestaurantByUserId(userId);
       if (restaurant.isPresent()) {
           return ResponseEntity.ok(restaurant.get());
@@ -65,17 +73,21 @@ public class RestaurantController {
   }
 
 
+
+  // method to save an uploaded image to uploads/ directory and returns the path
     private String saveImage(MultipartFile imageFile) {
         try {
-            String uploadsDir = "uploads/";
+            String uploadsDir = "uploads/";  //folder where images will be stored
             String originalFilename = imageFile.getOriginalFilename();
-            String fileName = System.currentTimeMillis() + "_" + originalFilename;
+            String fileName = System.currentTimeMillis() + "_" + originalFilename;// filename is unique
+            //create the file path
             Path path = Paths.get(uploadsDir + fileName);
 
+            //created uploads/ folder if it doesn't exist
             Files.createDirectories(path.getParent());
-            Files.write(path, imageFile.getBytes());
+            Files.write(path, imageFile.getBytes()); //write the image bytes to file system
 
-            return "/uploads/" + fileName; // Return URL or path
+            return "/uploads/" + fileName; // Return  path
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file", e);
             }

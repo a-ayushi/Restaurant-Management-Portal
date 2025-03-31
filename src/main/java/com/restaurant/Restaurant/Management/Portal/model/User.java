@@ -2,6 +2,11 @@ package com.restaurant.Restaurant.Management.Portal.model;
 
 import jakarta.persistence.*;
 
+
+
+//the User class defines the user table
+// it has four attributes, it stores the details of registered user
+
 @Entity
 @Table(name="users")
 public class User {
@@ -21,6 +26,8 @@ public class User {
 
 //default constructor
     public User(){}
+
+
 // parameterized constructor
 public User(String email, String password, Role role) {
     this.email = email;

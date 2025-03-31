@@ -1,5 +1,6 @@
 package com.restaurant.Restaurant.Management.Portal.dto;
 
+//transfer details of each item in an order
 public class OrderItemDTO {
 
     private Long menuItemId;
@@ -7,16 +8,17 @@ public class OrderItemDTO {
     private double price;
 
 
-    //  Default Constructor (Required for serialization)
+    //  Default Constructor
     public OrderItemDTO() {}
 
-    //  Parameterized Constructor (Optional but useful)
+    //  Parameterized Constructor
     public OrderItemDTO(Long menuItemId, int quantity, double price) {
         this.menuItemId = menuItemId;
         this.quantity = quantity;
         this.price = price;
     }
 
+    // getters and setters to access and modify data safely
     public Long getMenuItemId() {
         return menuItemId;
     }

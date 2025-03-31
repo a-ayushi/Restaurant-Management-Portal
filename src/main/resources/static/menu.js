@@ -100,40 +100,32 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append("image", imageFile);
         }
 
+        const url = isUpdating
+            ? `http://localhost:8080/menus/${updatingMenuId}`
+            : `http://localhost:8080/menus/${restaurantId}`;
 
-        if (isUpdating) {
-            //  Update existing menu item
-            fetch(`http://localhost:8080/menus/${updatingMenuId}`, {
-                method: "PUT",
-                body:formData
-//                headers: { "Content-Type": "application/json" },
-//                body: JSON.stringify({ name, price })
-            })
-            .then(response => response.json())
-            .then(() => {
-                menuFormContainer.style.display = "none";
-                menuForm.reset();
-                fetchMenu();
-            })
-            .catch(error => console.error("Error updating menu:", error));
-        } else {
-            //  Add a new menu item
-            fetch(`http://localhost:8080/menus/${restaurantId}`, {
-                method: "POST",
-                body:formData
-//                headers: { "Content-Type": "application/json" },
-//                body: JSON.stringify({ name, price })
-            })
-            .then(response => response.json())
-            .then(() => {
-                menuFormContainer.style.display = "none";
-                 menuContainer.style.display="none";
-                menuForm.reset();
-                fetchMenu();
-            })
-            .catch(error => console.error("Error adding menu:", error));
-        }
+        const method = isUpdating ? "PUT" : "POST";
+
+        fetch(url, {
+            method,
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Server error");
+            }
+            return response.json(); // Wait until the backend sends back a complete JSON
+        })
+        .then(() => {
+            menuFormContainer.style.display = "none";
+            menuContainer.style.display = "block";
+            menuForm.reset();
+            // Add small delay before fetching updated list
+            setTimeout(fetchMenu, 300); // gives backend time to store
+        })
+        .catch(error => console.error("Error saving menu:", error));
     });
+
 
     //  Show update form and switch to update mode
     function showUpdateForm(menuId, name, price) {

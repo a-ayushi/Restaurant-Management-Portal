@@ -2,7 +2,8 @@ package com.restaurant.Restaurant.Management.Portal.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
+//each orderItem represents a single menu item within an order
+//order_items represents the individual items in an order
 
     @Entity
     @Table(name = "order_items")
@@ -11,8 +12,8 @@ import java.math.BigDecimal;
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @ManyToOne
-        @JoinColumn(name = "order_id", nullable = false)
+        @ManyToOne // many-to-one relationship with order entity
+        @JoinColumn(name = "order_id", nullable = false) //order_id work as foreign key
         private Order order;
 
         @Column(nullable = false)
@@ -24,21 +25,24 @@ import java.math.BigDecimal;
         @Column(nullable = false)
         private long price;
 
+        //default constructor
         public OrderItem(){}
 
+        //parameterized constructor - creates new OrderItem instance
         public OrderItem(Long id, Long menuId, Order order, long price, int quantity) {
             this.id = id;
-            this.menuId = menuId;
-            this.order = order;
+            this.menuId = menuId; //id of menu item orders
+            this.order = order;//associated order object that this item belongs to
             this.price = price;
             this.quantity = quantity;
         }
 
+
         public OrderItem(Order order, Menu menuItem, int quantity, double price) {
         }
 
-        // Getters and Setters
 
+        // Getters and Setters
 
         public Long getId() {
             return id;

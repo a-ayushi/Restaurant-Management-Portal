@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//in the orders table all placed orders are stored
 
 @Entity
 @Table(name = "orders")
@@ -23,14 +24,12 @@ public class Order {
     private LocalDateTime createdAt;
 
 
-//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<OrderItem> orderItems;
-
     public Order() {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now(); //current time and date
         this.status = OrderStatus.PENDING; // Default status
     }
 
+    //parameterized constructor
     public Order(Long userId, Long restaurantId, Double totalPrice) {
         this.userId = userId;
         this.restaurantId = restaurantId;

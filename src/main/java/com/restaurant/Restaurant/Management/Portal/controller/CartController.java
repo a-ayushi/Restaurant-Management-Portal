@@ -18,7 +18,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    // Add an item to the cart
+    // 1. Add an item to the cart
     @PostMapping("/add")
     public ResponseEntity<Map<String, String>> addToCart(@RequestBody Map<String, Object> request) {
         Long userId = Long.parseLong(request.get("userId").toString());
@@ -26,43 +26,45 @@ public class CartController {
         String itemName = request.get("itemName").toString();
         double itemPrice = Double.parseDouble(request.get("itemPrice").toString());
         Long restaurantId = Long.parseLong(request.get("restaurantId").toString());
-        int quantity = request.get("quantity") != null ? Integer.parseInt(request.get("quantity").toString()) : 1;
+        int quantity = request.get("quantity") != null ? Integer.parseInt(request.get("quantity").toString()) : 1;//check if quantity is present ,if not then assign default as 1.
 
-
+       //call addToCart method from cartService and pass extracted values
         String message = cartService.addToCart(userId, menuItemId,itemName,itemPrice,restaurantId,quantity);
-        return ResponseEntity.ok(Map.of("message", message));
+        return ResponseEntity.ok(Map.of("message", message)); // return a string message
     }
 
-    //  Get all cart items for a user
+    // 2. Get all cart items for a user
     @GetMapping("/{userId}")
-    public ResponseEntity<List<Map<String, Object>>> getCartItems(@PathVariable Long userId) {
+    public ResponseEntity<List<Map<String, Object>>> getCartItems(@PathVariable Long userId) {  //method return list of maps
         List<Cart> cartItems = cartService.getCartItems(userId);
 
-        // Convert Cart objects into a structured JSON response with `imageUrl`
-        List<Map<String, Object>> response = cartItems.stream().map(cart -> Map.of(
+        // Convert Cart objects into a structured JSON response with imageUrl
+        List<Map<String, Object>> response = cartItems.stream().map(cart -> Map.of(  //for each cart item it creates a map.
                 "id", cart.getId(),
                 "menuItemId", cart.getMenuItem().getId(),
                 "itemName", cart.getItemName(),
                 "itemPrice", cart.getItemPrice(),
                 "quantity", cart.getQuantity(),
-                "restaurant", Map.of(
+                "restaurant", Map.of(   // it is a nested map
                         "id", cart.getRestaurant().getId(),
                         "name", cart.getRestaurant().getName()
                 ),
-                "imageUrl", cart.getMenuItem().getImageUrl() // ✅ Include image URL
-        )).collect(Collectors.toList());
+                "imageUrl", cart.getMenuItem().getImageUrl() //  Include image URL
+        )).collect(Collectors.toList()); //collects all mapped cart items into list of map<string,object>
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response); //return list of maps
     }
 
-    // Remove a specific item from the cart
+    // 3. Remove a specific item from the cart
     @DeleteMapping("/remove/{cartItemId}")
     public ResponseEntity<String> removeCartItem(@PathVariable Long cartItemId) {
-        cartService.removeCartItem(cartItemId);
-        return ResponseEntity.ok("Item removed from cart.");
+        cartService.removeCartItem(cartItemId);  //calls the service layer
+        return ResponseEntity.ok("Item removed from cart."); //returns a success message
     }
 
-//    // Clear the entire cart for a user
+
+    //commenting for now, but can be used in future
+//    // API to Clear the entire cart for a user
 //    @DeleteMapping("/clear/{userId}")
 //    public ResponseEntity<String> clearCart(@PathVariable Long userId) {
 //        cartService.clearCart(userId);

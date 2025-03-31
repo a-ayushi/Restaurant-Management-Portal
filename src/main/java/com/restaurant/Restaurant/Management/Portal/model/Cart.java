@@ -2,26 +2,28 @@ package com.restaurant.Restaurant.Management.Portal.model;
 
 import jakarta.persistence.*;
 
+
+//cart_items table stores all the items added to cart
 @Entity
 @Table(name = "cart_items")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //  Unique ID for cart item
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "menu_item_id", nullable = false)
+    @JoinColumn(name = "menu_item_id", nullable = false)//menu_item_id in db is the foreign key referring menu entity
     private Menu menuItem; //  Menu item being added to cart
 
-    private String itemName; //  Store the name of the menu item
-    private double itemPrice; //  Store the price of the menu item
-    private String imageUrl; //  Store the image URL of the menu item
+    private String itemName; //  name of the menu item
+    private double itemPrice; //   price of the menu item
+    private String imageUrl; //  image URL of the menu item
     private int quantity; // Quantity of item in cart
 
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)//user_id column in db stores the foreign key referencing User table
     private User user; //  User who added the item to the cart
 
     @ManyToOne
