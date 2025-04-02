@@ -19,7 +19,7 @@ Backend: Spring Boot
 Database: PostgreSQL
 
 #Clone the Respository:
-git clone 
+git clone https://github.com/a-ayushi/Restaurant-Management-Portal.git
 
 #Folder Structure:
 📂 Restaurant-Management-Portal
